@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     $('#title').on('keyup',function(){
         var value = $('#title').val();
-        var final = value.replace(/ /g,"-");
+        var final = value.replace(/ /g,"_");
         $('#url').val(final);
     });
 })
