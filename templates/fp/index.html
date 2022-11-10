@@ -83,11 +83,13 @@
             <div class="rs-about main-home bg1 pt-110 pb-110 md-pt-70 md-pb-65">
                 <div class="container">
                     <div class="row y-middle">
+                        {% if about.Image %}
                         <div class="col-lg-6 md-mb-50">
                             <div class="images-part">
                                 <img src="{{about.Image.url}}" alt="Images">
                             </div>
                         </div>
+                        {% endif %}
                         <div class="col-lg-6 pl-60 md-pl-15">
                             <div class="sec-title">
                                 <h2 class="title pb-30">
@@ -168,9 +170,13 @@
                     data-mobile-device-nav="false" data-mobile-device-dots="true">
                 {% for s in fs %}    
                     <div class="service-wrap">
-                        <a href="{% url 'service-details' s.Url %}"><div class="image-part">
-                            <img src="{{s.Image.url}}" alt="">
-                        </div></a>
+                        <a href="{% url 'service-details' s.Url %}">
+                            {% if s.Image %}
+                                <div class="image-part">
+                                <img src="{{s.Image.url}}" alt="">
+                                </div>
+                            {% endif %}
+                        </a>
                         <div class="content-part">
                             <h3 class="title"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a><p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p></h3>
                             <div class="desc">{{s.Description}}</div>
@@ -237,9 +243,13 @@
                         data-mobile-device-dots="true"> 
                     {% for p in fp %}    
                         <div class="team-wrap">
+                            {% if p.Image %}
                             <div class="image-wrap">
-                                <a href="{% url 'product-details' p.Url %}"><img src="{{p.Image.url}}" alt="Team"></a>    
+                                <a href="{% url 'product-details' p.Url %}">
+                                    <img src="{{p.Image.url}}" alt="Team">
+                                </a>    
                             </div>
+                            {% endif %}
                             <div class="team-content">
                                 <h3 class="team-name"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a><p class="price"><del style="color:grey;">${{p.Actual_Price}}</del> ${{p.Offer_Price}}</p></h3>    
                             </div>
@@ -267,9 +277,11 @@
                         {% for testimonial in testimonials %}    
                             <div class="testi-item">
                                 <div class="testi-wrap">
-                                    <div class="image-wrap">
-                                        <img src="{{testimonial.Tes_Image.url}}" alt="Testimonial">
-                                    </div>
+                                    {% if testimonial.Tes_Image %}
+                                        <div class="image-wrap">
+                                            <img src="{{testimonial.Tes_Image.url}}" alt="Testimonial">
+                                        </div>
+                                    {% endif %}
                                     <div class="item-contents">
                                         <p>{{testimonial.Testimonial}}</p>
                                     </div>
@@ -297,9 +309,11 @@
                     <div class="rs-carousel owl-carousel" data-loop="true" data-items="3" data-margin="30" data-autoplay="true" data-hoverpause="true" data-autoplay-timeout="5000" data-smart-speed="800" data-dots="true" data-nav="false" data-nav-speed="false" data-center-mode="false" data-mobile-device="1" data-mobile-device-nav="false" data-mobile-device-dots="true" data-ipad-device="2" data-ipad-device-nav="false" data-ipad-device-dots="true" data-ipad-device2="2" data-ipad-device-nav2="false" data-ipad-device-dots2="true" data-md-device="3" data-md-device-nav="false" data-md-device-dots="true">
                         {% for blog in blogs %}
                         <div class="blog-item">
+                            {% if blog.Image %}
                             <div class="image-wrap">
                                 <a href="{% url 'blog-detailed' blog.Url %}"><img src="{{blog.Image.url}}" alt="Blog"></a>
                             </div>
+                            {% endif %}
                             <div class="blog-content">
                                <ul class="blog-meta">
                                    <li class="date">{{blog.Date}}</li>
