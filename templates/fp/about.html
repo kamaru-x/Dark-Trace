@@ -57,9 +57,11 @@
                 <div class="container">
                     <div class="row y-middle">
                         <div class="col-lg-6 md-mb-50">
-                            <div class="images-part">
-                                <img src="{{about.Image.url}}" alt="Images">
-                            </div>
+                            {% if about.Image %}
+                                <div class="images-part">
+                                    <img src="{{about.Image.url}}" alt="Images">
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="col-lg-6 pl-60 md-pl-15">
                             <div class="sec-title">

@@ -71,6 +71,7 @@
                     {% for product in product %}
                     <div class="col-lg-4 col-md-6 mb-80 md-mb-40">
                         <div class="product-list">
+                            {% if product.Image %}
                             <div class="image-product">
                                 <a href="{% url 'product-details' product.Url %}"><img src="{{product.Image.url}}" alt=""></a>
                                 <div class="overley">
@@ -78,6 +79,7 @@
                                 </div>
                                  <span class="megasale">80%</span>
                             </div>
+                            {% endif %}
                             <div class="content-desc text-center">
                                 <h2 class="loop-product-title"><a href="{% url 'product-details' product.Url %}">{{product.Title}}</a><p class="price"><del style="color:grey;">${{product.Actual_Price}}</del> ${{product.Offer_Price}}</p></h2>
                                 

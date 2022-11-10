@@ -60,10 +60,12 @@
                                 </div>
                                 {% for b in blog3 %}
                                 <div class="recent-post-widget">
+                                    {% if b.Image %}
                                     <div class="post-img">
                                         <a href="{% url 'blog-detailed' b.Url %}"><img src="{{b.Image.url}}"
                                                 alt=""></a>
                                     </div>
+                                    {% endif %}
                                     <div class="post-desc">
                                         <a href="{% url 'blog-detailed' b.Url %}"> {{b.Title}}
                                         </a>
@@ -79,9 +81,11 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="blog-details">
+                                    {% if blog.Image %}
                                     <div class="bs-img mb-35">
                                         <a href="#"><img src="{{blog.Image.url}}" alt=""></a>
                                     </div>
+                                    {% endif %}
                                     <div class="blog-full">
                                         <ul class="single-post-meta">
                                             <li>
