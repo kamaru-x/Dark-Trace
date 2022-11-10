@@ -75,6 +75,6 @@ def remove_blog_img(request,bid):
     blog.Image.delete(save=True)
     blog.save()
 
-    return redirect('edit_blog/%s' %blog.id)
+    return redirect('/admin/edit_blog/%s' %blog.id)
 
 ########################################################################

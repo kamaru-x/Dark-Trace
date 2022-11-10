@@ -72,4 +72,4 @@ def remove_ban_img(request,bid):
     banner.Banner_Image.delete(save=True)
     banner.save()
 
-    return redirect('edit_banner/%s' %banner.id)
+    return redirect('/admin/edit_banner/%s' %banner.id)

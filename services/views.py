@@ -101,4 +101,4 @@ def remove_ser_img(request,sid):
     service.Image.delete(save=True)
     service.save()
 
-    return redirect('edit_service/%s' %service.id)
+    return redirect('/admin/edit_service/%s' %service.id)

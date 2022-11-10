@@ -70,4 +70,4 @@ def remove_tes_img(request,tid):
     testimonial.Tes_Image.delete(save=True)
     testimonial.save()
 
-    return redirect('edit_testimonial/%s' %testimonial.id)
+    return redirect('/admin/edit_testimonial/%s' %testimonial.id)

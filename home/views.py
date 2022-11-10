@@ -255,7 +255,7 @@ def remove_abt_img(request,aid):
     about.Image.delete(save=True)
     about.save()
 
-    return redirect('about_us')
+    return redirect('/admin/about_us')
 
 ########################################################################
 
