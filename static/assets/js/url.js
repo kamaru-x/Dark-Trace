@@ -9,4 +9,10 @@ $(document).ready(function(){
         var final = value.replace(/ /g,"-");
         $('input[name="url"]').val(final);
     });
+
+    $('#title').on('keyup',function(){
+        var value = $('#title').val();
+        var final = value.replace(/ /g,"_");
+        $('#url').val(final);
+    });
 })
