@@ -97,7 +97,7 @@
                                 </h2>
                                 <!-- <span class="sub-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </span> -->
 
-                                <p class="margin-0" style="text-align: justify;">{{about.Description}}</p>
+                                <p class="margin-0" style="text-align: justify;">{{about.Description|safe}}</p>
                                 <div class="btn-part mt-45">
                                     <a class="readon consultant discover" href="{% url 'about-page' %}">About Us</a>
                                 </div>
