@@ -67,12 +67,12 @@ class Blog(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
 
-        if img.height > 600 or img.width > 600:
-            output_size = (600,600)
+        if img.height > 338 or img.width > 600:
+            output_size = (338,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
-        elif img.height < 600 or img.width < 600:
-            output_size = (600,600)
+        elif img.height < 338 or img.width < 600:
+            output_size = (338,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
 
@@ -97,12 +97,12 @@ class Album(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Thumbnail.path)
 
-        if img.height > 400 or img.width > 400:
-            output_size = (400,400)
+        if img.height > 225 or img.width > 400:
+            output_size = (225,400)
             img.thumbnail(output_size)
             img.save(self.Thumbnail.path)
-        elif img.height < 400 or img.width < 400:
-            output_size = (400,400)
+        elif img.height < 225 or img.width < 400:
+            output_size = (225,400)
             img.thumbnail(output_size)
             img.save(self.Thumbnail.path)
 
@@ -122,12 +122,12 @@ class Album_Image(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Thumbnail.path)
 
-        if img.height > 800 or img.width > 800:
-            output_size = (800,800)
+        if img.height > 450 or img.width > 800:
+            output_size = (450,800)
             img.thumbnail(output_size)
             img.save(self.Thumbnail.path)
-        elif img.height < 800 or img.width < 800:
-            output_size = (800,800)
+        elif img.height < 450 or img.width < 800:
+            output_size = (450,800)
             img.thumbnail(output_size)
             img.save(self.Thumbnail.path)
 
@@ -182,12 +182,12 @@ class Product(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
 
-        if img.height > 600 or img.width > 600:
-            output_size = (600,600)
+        if img.height > 338 or img.width > 600:
+            output_size = (338,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
-        elif img.height < 600 or img.width < 600:
-            output_size = (600,600)
+        elif img.height < 338 or img.width < 600:
+            output_size = (338,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
 
@@ -217,12 +217,12 @@ class Service(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
 
-        if img.height > 600 or img.width > 600:
-            output_size = (600,600)
+        if img.height > 338 or img.width > 600:
+            output_size = (338,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
-        elif img.height < 600 or img.width < 600:
-            output_size = (600,600)
+        elif img.height < 338 or img.width < 600:
+            output_size = (338,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
 
@@ -281,12 +281,12 @@ class Group_Of_Companies(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Logo.path)
 
-        if img.height > 500 or img.width > 500:
-            output_size = (500,500)
+        if img.height > 375 or img.width > 500:
+            output_size = (375,500)
             img.thumbnail(output_size)
             img.save(self.Logo.path)
-        elif img.height < 500 or img.width < 500:
-            output_size = (500,500)
+        elif img.height < 375 or img.width < 500:
+            output_size = (375,500)
             img.thumbnail(output_size)
             img.save(self.Logo.path)
 
@@ -331,11 +331,11 @@ class Banners(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Banner_Image.path)
 
-        if img.height > 1500 or img.width > 1500:
-            output_size = (1500,1500)
+        if img.height > 844 or img.width > 1500:
+            output_size = (844,1500)
             img.thumbnail(output_size)
             img.save(self.Banner_Image.path)
-        elif img.height < 1500 or img.width < 1500:
-            output_size = (1500,1500)
+        elif img.height < 844 or img.width < 1500:
+            output_size = (844,1500)
             img.thumbnail(output_size)
             img.save(self.Banner_Image.path)
