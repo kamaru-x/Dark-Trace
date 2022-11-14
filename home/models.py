@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from PIL import Image as IMG
 # Create your models here.
 
 ########################################################################
@@ -62,6 +63,19 @@ class Blog(models.Model):
     def __str__(self):
         return self.Title
 
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Image.path)
+
+        if img.height > 600 or img.width > 600:
+            output_size = (600,600)
+            img.thumbnail(output_size)
+            img.save(self.Image.path)
+        elif img.height < 600 or img.width < 600:
+            output_size = (600,600)
+            img.thumbnail(output_size)
+            img.save(self.Image.path)
+
 ########################################################################
 
 class Album(models.Model):
@@ -79,6 +93,19 @@ class Album(models.Model):
     def __str__(self):
         return self.Title
 
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Thumbnail.path)
+
+        if img.height > 400 or img.width > 400:
+            output_size = (400,400)
+            img.thumbnail(output_size)
+            img.save(self.Thumbnail.path)
+        elif img.height < 400 or img.width < 400:
+            output_size = (400,400)
+            img.thumbnail(output_size)
+            img.save(self.Thumbnail.path)
+
 ########################################################################
 
 class Album_Image(models.Model):
@@ -90,6 +117,19 @@ class Album_Image(models.Model):
 
     def __str__(self):
         return self.Album_Name.Title
+
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Thumbnail.path)
+
+        if img.height > 800 or img.width > 800:
+            output_size = (800,800)
+            img.thumbnail(output_size)
+            img.save(self.Thumbnail.path)
+        elif img.height < 800 or img.width < 800:
+            output_size = (800,800)
+            img.thumbnail(output_size)
+            img.save(self.Thumbnail.path)
 
 ########################################################################
 
@@ -138,6 +178,19 @@ class Product(models.Model):
     def __str__(self):
         return self.Title
 
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Image.path)
+
+        if img.height > 600 or img.width > 600:
+            output_size = (600,600)
+            img.thumbnail(output_size)
+            img.save(self.Image.path)
+        elif img.height < 600 or img.width < 600:
+            output_size = (600,600)
+            img.thumbnail(output_size)
+            img.save(self.Image.path)
+
 ########################################################################
 
 class Service(models.Model):
@@ -159,6 +212,19 @@ class Service(models.Model):
 
     def __str__(self):
         return self.Title
+
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Image.path)
+
+        if img.height > 600 or img.width > 600:
+            output_size = (600,600)
+            img.thumbnail(output_size)
+            img.save(self.Image.path)
+        elif img.height < 600 or img.width < 600:
+            output_size = (600,600)
+            img.thumbnail(output_size)
+            img.save(self.Image.path)
 
 ########################################################################
 
@@ -211,6 +277,19 @@ class Quick_Links(models.Model):
 class Group_Of_Companies(models.Model):
     Logo = models.ImageField(blank=True,null=True,upload_to='CompanyLogo')
 
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Logo.path)
+
+        if img.height > 500 or img.width > 500:
+            output_size = (500,500)
+            img.thumbnail(output_size)
+            img.save(self.Logo.path)
+        elif img.height < 500 or img.width < 500:
+            output_size = (500,500)
+            img.thumbnail(output_size)
+            img.save(self.Logo.path)
+
 ########################################################################
 
 class Testimonial(models.Model):
@@ -223,6 +302,19 @@ class Testimonial(models.Model):
     def __str__(self):
         return self.Tes_Name
 
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Tes_Image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.Tes_Image.path)
+        elif img.height < 300 or img.width < 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.Tes_Image.path)
+
 ########################################################################
 
 class Banners(models.Model):
@@ -234,3 +326,16 @@ class Banners(models.Model):
 
     def __str__(self):
         return self.Caption
+
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        img = IMG.open(self.Banner_Image.path)
+
+        if img.height > 1500 or img.width > 1500:
+            output_size = (1500,1500)
+            img.thumbnail(output_size)
+            img.save(self.Banner_Image.path)
+        elif img.height < 1500 or img.width < 1500:
+            output_size = (1500,1500)
+            img.thumbnail(output_size)
+            img.save(self.Banner_Image.path)
