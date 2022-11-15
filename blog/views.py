@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import Blog
+from home.models import Blog,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def blog(request):
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST':
         title = request.POST.get('title')
         image = request.FILES['image']
@@ -22,19 +23,25 @@ def blog(request):
         Data.save()
         messages.success(request,'new blog added successfully.....!')
         return redirect('blog')
-    return render(request,'blog.html')
+
+    context = {
+        'manage' : manage
+    }
+    return render(request,'blog.html',context)
 
 ########################################################################
 
 @login_required
 def manage_blog(request):
     blogs = Blog.objects.all()
-    return render(request,'manage_blog.html',{'blogs':blogs})
+    manage = Manage_Menu.objects.last()
+    return render(request,'manage_blog.html',{'blogs':blogs,'manage':manage})
 
 ########################################################################
 
 @login_required
 def edit_blog(request,bid):
+    manage = Manage_Menu.objects.last()
     blog = Blog.objects.get(id=bid)
     if request.method == 'POST':
         if len(request.FILES) != 0:
@@ -53,6 +60,7 @@ def edit_blog(request,bid):
         return redirect('.')
     context = {
         'blog' : blog,
+        'manage' : manage
     }
     return render(request,'edit_blog.html',context)
 

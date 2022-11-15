@@ -13,7 +13,11 @@ from django.contrib.auth.decorators import login_required
 ########################################################################
 
 def index(request):
-    return render(request,'index.html')
+    manage = Manage_Menu.objects.last()
+    context = {
+        'manage' : manage
+    }
+    return render(request,'index.html',context)
 
 ########################################################################
 
@@ -47,6 +51,7 @@ def dashboard(request):
     services = Service.objects.all()
     blogs = Blog.objects.all()
     albums = Album.objects.all()
+    manage = Manage_Menu.objects.last()
 
     product_count = len(products)
     service_count = len(services)
@@ -59,6 +64,7 @@ def dashboard(request):
         'ser' : service_count,
         'blg' : blog_count,
         'alb' : album_count,
+        'manage' : manage,
     }
     return render(request,'dashboard.html',context,)
 
@@ -67,6 +73,7 @@ def dashboard(request):
 @login_required
 def about_us(request):
     about = About.objects.last()
+    manage = Manage_Menu.objects.last()
     form = AboutForm
     if request.method == "POST":
         if about :
@@ -80,7 +87,8 @@ def about_us(request):
     form = AboutForm(instance=about)
     context = {
         'about' : about,
-        'form' : form
+        'form' : form,
+        'manage' : manage,
     }
     return render(request,'about_us.html',context)
 
@@ -89,6 +97,7 @@ def about_us(request):
 @login_required
 def contact_us(request):
     contact = Contact.objects.last()
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST':
         if contact:
             if len(request.FILES) != 0:
@@ -141,15 +150,17 @@ def contact_us(request):
             Twitter=twitter,Image=image,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
             data.save()
             return redirect('contact_us')
-    return render(request,'contact_us.html',{'data':contact})
+    return render(request,'contact_us.html',{'data':contact,'manage':manage})
 
 ########################################################################
 
 @login_required
 def feedback(request):
     feedbacks = Feedback.objects.all()
+    manage = Manage_Menu.objects.last()
     context = {
-        'feedbacks' : feedbacks
+        'feedbacks' : feedbacks,
+        'manage' : manage
     }
     return render(request,'feedback.html',context)
 
@@ -158,8 +169,10 @@ def feedback(request):
 @login_required
 def enquiry(request):
     enquiries = Enquiry.objects.all()
+    manage = Manage_Menu.objects.last()
     context = {
         'enquiries' : enquiries,
+        'manage' : manage
     }
     return render(request,'enquiry.html',context)
 
@@ -223,6 +236,7 @@ def manage_menu(request):
 @login_required
 def quick_links(request):
     quick = Quick_Links.objects.last()
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST':
         if quick :
             quick.About_Page = request.POST.get('about')
@@ -254,6 +268,7 @@ def quick_links(request):
             return redirect('quick_links')
     context = {
         'quick' : quick,
+        'manage' : manage,
     }
     return render(request,'quick_links.html',context)
 
@@ -288,6 +303,7 @@ def remove_enquiry(request,eid):
 
 @login_required
 def user_profile(request):
+    manage = Manage_Menu.objects.last()
     form = UserChangeForm
     if request.method == "POST":
         form = AboutForm(request.POST , request.FILES)
@@ -297,7 +313,8 @@ def user_profile(request):
             return redirect('about_us')
     form = UserChangeForm()
     context = {
-        'form' : form
+        'form' : form,
+        'manage' : manage
     }
     return render(request,'change-password.html',context)
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import Album,Album_Image
+from home.models import Album,Album_Image,Manage_Menu
 from home.forms import AboutForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def create_album(request):
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST':
         title = request.POST.get('title')
         image = request.FILES['image']
@@ -23,16 +24,22 @@ def create_album(request):
         Data.save()
         messages.success(request,'album created successfully...!')
         return redirect('create_album')
+
+    context = {
+        'manage' : manage
+    }
     
-    return render(request,'create_album.html')
+    return render(request,'create_album.html',context)
 
 ########################################################################
 
 @login_required
 def view_ablum(request,aid):
     album = Album.objects.get(id=aid)
+    manage = Manage_Menu.objects.last()
     context = {
         'album' : album,
+        'manage' : manage,
     }
     return render(request,'album_view.html',context)
 
@@ -40,6 +47,7 @@ def view_ablum(request,aid):
 
 @login_required
 def upload_image(request):
+    manage = Manage_Menu.objects.last()
     albums = Album.objects.all()
 
     if request.method == 'POST':
@@ -58,7 +66,8 @@ def upload_image(request):
         messages.success(request,'image uploaded successfully ...!')
         return redirect('upload_image')
     context = {
-        'albums' : albums
+        'albums' : albums,
+        'manage' : manage,
     }
     return render(request,'upload_image.html',context)
 
@@ -67,8 +76,10 @@ def upload_image(request):
 @login_required
 def manage_album(request):
     albums = Album.objects.all()
+    manage = Manage_Menu.objects.last()
     context = {
         'albums' : albums,
+        'manage' : manage,
     }
     return render(request,'manage_album.html',context)
 
@@ -78,6 +89,7 @@ def manage_album(request):
 def edit_album(request,aid):
     album = Album.objects.get(id=aid)
     images = Album_Image.objects.filter(Album_Name=aid)
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST' :
         if len(request.FILES) != 0:
         #         if len(album.Image) > 0:
@@ -90,6 +102,7 @@ def edit_album(request,aid):
     context = {
         'album' : album,
         'images' : images,
+        'manage' : manage,
     }
     return render(request,'edit_album.html',context)
 

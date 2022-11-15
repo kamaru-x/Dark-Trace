@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import Product,Contact
+from home.models import Product,Contact,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 def products(request):
     product = Product.objects.last()
     contact = Contact.objects.last()
+    manage = Manage_Menu.objects.last()
 
     if product :
         refer_id = ('PR-00%s' %str(product.id+1))
@@ -42,6 +43,7 @@ def products(request):
     context = {
         'refer_id' : refer_id,
         'contact' : contact,
+        'manage' : manage,
     }
 
     return render(request,'products.html',context)
@@ -51,8 +53,10 @@ def products(request):
 @login_required
 def manage_product(request):
     products = Product.objects.all()
+    manage = Manage_Menu.objects.last()
     context = {
-        'products' : products
+        'products' : products,
+        'manage' : manage,
     }
     return render(request,'manage_product.html',context)
 
@@ -62,6 +66,7 @@ def manage_product(request):
 def edit_product(request,pid):
     product = Product.objects.get(id=pid)
     contact = Contact.objects.last()
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST':
         if len(request.FILES) != 0:
         #     if len(product.Image) > 0:
@@ -86,6 +91,7 @@ def edit_product(request,pid):
     context = {
         'product' : product,
         'contact' : contact,
+        'manage' : manage,
     }
     return render(request,'edit_product.html',context)
 

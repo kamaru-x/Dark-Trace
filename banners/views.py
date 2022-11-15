@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import Banners
+from home.models import Banners,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def banner(request):
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST' :
         caption = request.POST.get('caption')
         scaption = request.POST.get('scaption')
@@ -18,16 +19,22 @@ def banner(request):
         data.save()
         messages.success(request,'banner added')
         return redirect('banner')
+    
+    context = {
+        'manage' : manage
+    }
 
-    return render(request,'banner.html')
+    return render(request,'banner.html',context)
 
 ########################################################################
 
 @login_required
 def manage_banner(request):
+    manage = Manage_Menu.objects.last()
     banners = Banners.objects.all()
     context = {
         'banners' : banners,
+        'manage' : manage
     }
     return render(request,'manage_banner.html',context)
 
@@ -35,6 +42,7 @@ def manage_banner(request):
 
 @login_required
 def edit_banner(request,bid):
+    manage = Manage_Menu.objects.last()
     banner = Banners.objects.get(id=bid)
     if request.method == 'POST':
         if len(request.FILES) != 0:
@@ -50,6 +58,7 @@ def edit_banner(request,bid):
         return redirect('.')
     context = {
         'banner' : banner,
+        'manage' : manage,
     }
     return render(request,'edit_banner.html',context)
 

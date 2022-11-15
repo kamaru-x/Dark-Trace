@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
-from home.models import Testimonial
+from home.models import Testimonial,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 @login_required
 def add_testimonial(request):
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST' :
         name = request.POST.get('name')
         designation = request.POST.get('designation')
@@ -17,15 +18,21 @@ def add_testimonial(request):
         data.save()
         messages.success(request,'testimonial added')
         return redirect('add_testimonial')
-    return render(request,'add_testimonial.html')
+
+    context = {
+        'manage' : manage
+    }
+    return render(request,'add_testimonial.html',context)
 
 ########################################################################
 
 @login_required
 def manage_testimonial(request):
+    manage = Manage_Menu.objects.last()
     testimonials = Testimonial.objects.all()
     context = {
-        'testimonials' : testimonials
+        'testimonials' : testimonials,
+        'manage' : manage,
     }
     return render(request,'manage_testimonial.html',context)
 
@@ -34,6 +41,7 @@ def manage_testimonial(request):
 @login_required
 def edit_testimonial(request,tid):
     testimonial = Testimonial.objects.get(id=tid)
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST':
         if len(request.FILES) != 0:
         #     if len(testimonial.Image) > 0:
@@ -48,6 +56,7 @@ def edit_testimonial(request,tid):
         return redirect('.')
     context = {
         'tes' : testimonial,
+        'manage' : manage,
     }
     return render(request,'edit_testimonial.html',context)
 

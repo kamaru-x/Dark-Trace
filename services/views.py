@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import Service,Contact
+from home.models import Service,Contact,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 def services(request):
     service = Service.objects.last()
     contact = Contact.objects.last()
+    manage = Manage_Menu.objects.last()
 
     if service :
         refer_id = ('SE-00%s' %str(service.id+1))
@@ -40,6 +41,7 @@ def services(request):
     context = {
         'refer_id' : refer_id,
         'contact' : contact,
+        'manage' : manage,
     }
     return render(request,'services.html',context)
 
@@ -48,8 +50,10 @@ def services(request):
 @login_required
 def manage_service(request):
     services = Service.objects.all()
+    manage = Manage_Menu.objects.last()
     context = {
         'services' : services,
+        'manage' : manage,
     }
     return render(request,'manage_service.html',context)
 
@@ -59,6 +63,7 @@ def manage_service(request):
 def edit_service(request,sid):
     service = Service.objects.get(id=sid)
     contact = Contact.objects.last()
+    manage = Manage_Menu.objects.last()
     if request.method == 'POST':
         if len(request.FILES) != 0:
         #     if len(service.Image) > 0:
@@ -83,6 +88,7 @@ def edit_service(request,sid):
     context = {
         'service' : service,
         'contact' : contact,
+        'manage' : manage,
     }
     return render(request,'edit_service.html',context)
 

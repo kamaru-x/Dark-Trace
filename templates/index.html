@@ -61,91 +61,122 @@
                 <span class="nav-link-text">Dashboard</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about_us' %}">
-                <i class="ni ni-single-02 text-yellow"></i>
-                <span class="nav-link-text">About Us</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-books text-orange"></i>
-                <span class="nav-link-text">Blogs</span>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'blog' %}">Add new blog</a>
-                  <a class="dropdown-item" href="{% url 'manage_blog' %}">Manage blog</a>
-                </div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-image text-yellow"></i>
-                <span class="nav-link-text">Image Gallery</span>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'create_album' %}">Create Album</a>
-                  <a class="dropdown-item" href="{% url 'upload_image' %}">Upload Images</a>
-                  <a class="dropdown-item" href="{% url 'manage_album' %}">Manage Album</a>
-                </div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'contact_us' %}">
-                <i class="ni ni-mobile-button text-green"></i>
-                <span class="nav-link-text">Contact Us</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-basket text-info"></i>
-                <span class="nav-link-text">Products</span>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'products' %}">Add new product</a>
-                  <a class="dropdown-item" href="{% url 'manage_product' %}">Manage product</a>
-                </div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-support-16 text-pink"></i>
-                <span class="nav-link-text">Services</span>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'services' %}">Add Services</a>
-                  <a class="dropdown-item" href="{% url 'manage_service' %}">Manage Services</a>
-                </div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'feedback' %}">
-                <i class="ni ni-single-copy-04 text-dark"></i>
-                <span class="nav-link-text">Feedback</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'enquiry' %}">
-                <i class="ni ni-single-copy-04 text-dark"></i>
-                <span class="nav-link-text">Enquiry</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-support-16 text-pink"></i>
-                <span class="nav-link-text">Group Of Companies</span>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'add_logo' %}">Add Logo</a>
-                  <a class="dropdown-item" href="{% url 'manage_logo' %}">Manage Logo</a>
-                </div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="ni ni-support-16 text-pink"></i>
-                <span class="nav-link-text">Testimonials</span>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{% url 'add_testimonial' %}">Add Testimonials</a>
-                  <a class="dropdown-item" href="{% url 'manage_testimonial' %}">Manage Testimonials</a>
-                </div>
-              </a>
-            </li>
+
+            {% if manage.About_Page %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about_us' %}">
+                  <i class="ni ni-single-02 text-yellow"></i>
+                  <span class="nav-link-text">About Us</span>
+                </a>
+              </li>
+            {% endif %}
+            
+            {% if manage.Blog_Page %}
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="ni ni-books text-orange"></i>
+                  <span class="nav-link-text">Blogs</span>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'blog' %}">Add new blog</a>
+                    <a class="dropdown-item" href="{% url 'manage_blog' %}">Manage blog</a>
+                  </div>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Image_Gallery %}
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="ni ni-image text-yellow"></i>
+                  <span class="nav-link-text">Image Gallery</span>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'create_album' %}">Create Album</a>
+                    <a class="dropdown-item" href="{% url 'upload_image' %}">Upload Images</a>
+                    <a class="dropdown-item" href="{% url 'manage_album' %}">Manage Album</a>
+                  </div>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Contact_Page %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact_us' %}">
+                  <i class="ni ni-mobile-button text-green"></i>
+                  <span class="nav-link-text">Contact Us</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Products_Page %}
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="ni ni-basket text-info"></i>
+                  <span class="nav-link-text">Products</span>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'products' %}">Add new product</a>
+                    <a class="dropdown-item" href="{% url 'manage_product' %}">Manage product</a>
+                  </div>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Service_Page %}
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="ni ni-support-16 text-pink"></i>
+                  <span class="nav-link-text">Services</span>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'services' %}">Add Services</a>
+                    <a class="dropdown-item" href="{% url 'manage_service' %}">Manage Services</a>
+                  </div>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Feedback_Page %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'feedback' %}">
+                  <i class="ni ni-single-copy-04 text-dark"></i>
+                  <span class="nav-link-text">Feedback</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Enquiry_Page %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'enquiry' %}">
+                  <i class="ni ni-single-copy-04 text-dark"></i>
+                  <span class="nav-link-text">Enquiry</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Group_Company %}
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="ni ni-support-16 text-pink"></i>
+                  <span class="nav-link-text">Group Of Companies</span>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'add_logo' %}">Add Logo</a>
+                    <a class="dropdown-item" href="{% url 'manage_logo' %}">Manage Logo</a>
+                  </div>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if manage.Testimonials %}
+              <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="ni ni-support-16 text-pink"></i>
+                  <span class="nav-link-text">Testimonials</span>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'add_testimonial' %}">Add Testimonials</a>
+                    <a class="dropdown-item" href="{% url 'manage_testimonial' %}">Manage Testimonials</a>
+                  </div>
+                </a>
+              </li>
+            {% endif %}
+            
             <li class="nav-item">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="ni ni-support-16 text-pink"></i>
