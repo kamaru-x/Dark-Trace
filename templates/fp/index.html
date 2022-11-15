@@ -179,7 +179,7 @@
                         </a>
                         <div class="content-part">
                             <h3 class="title"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a><p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p></h3>
-                            <div class="desc">{{s.Description}}</div>
+                            <div class="desc">{{s.Description|slice:":100"}}</div>
                         </div>
                     </div>
                 {% endfor %}    
@@ -283,7 +283,7 @@
                                         </div>
                                     {% endif %}
                                     <div class="item-contents">
-                                        <p>{{testimonial.Testimonial}}</p>
+                                        <p>{{testimonial.Testimonial|slice:":100"}}</p>
                                     </div>
                                     <div class="testi-information">
                                         <div class="testi-name">{{testimonial.Tes_Name}}</div>
