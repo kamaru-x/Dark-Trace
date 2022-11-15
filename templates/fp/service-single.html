@@ -75,9 +75,13 @@
                     <div class="col-md-8 col-sm-12">
                         <div class="single-price-info pl-30 sm-pl-0"><br><br>
                             <h3 class="product-title">{{service.Title}}</h3>
-                            <span class="single-price"><del style="color:grey;">${{service.Actual_Price}}</del>&nbsp ${{service.Offer_Price}}</span>
+                            {% if service.Show_Price %}
+                                <span class="single-price"><del style="color:grey;">${{service.Actual_Price}}</del>&nbsp ${{service.Offer_Price}}</span>
+                            {% endif %}
                             <!-- <p class="some-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> --> <br><br>
-                                 <button class="add-btn ml-10" type="submit" data-toggle="modal" data-target="#get-quote" href="#" opacity="1">Enquire</button>
+                            {% if service.Show_Enquiry %}
+                                <button class="add-btn ml-10" type="submit" data-toggle="modal" data-target="#get-quote" href="#" opacity="1">Enquire</button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -115,17 +119,21 @@
                     {% for s in ser3 %}
                     <div class="col-lg-4 col-md-6 col-sm-6 md-mb-45">
                         <div class="product-list">
-                            {% if service.Image %}
+                            {% if s.Image %}
                             <div class="image-product">
-                                <a href="{% url 'service-details' service.Url %}"><img src="{{s.Image.url}}" alt=""></a>
+                                <a href="{% url 'service-details' s.Url %}"><img src="{{s.Image.url}}" alt=""></a>
                                 <div class="overley">
-                                    <a href="{% url 'service-details' service.Url %}"><i class="flaticon-shopping-bag"></i></a>
+                                    <a href="{% url 'service-details' s.Url %}"><i class="flaticon-shopping-bag"></i></a>
                                 </div>
                                  <span class="megasale">80%</span>
                             </div>
                             {% endif %}
                             <div class="content-desc text-center">
-                                <h2 class="loop-product-title pt-15"><a href="{% url 'service-details' service.Url %}">{{s.Title}}</a><p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p></h2>
+                                <h2 class="loop-product-title pt-15"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a>
+                                {% if s.Show_Price %}
+                                    <p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p>
+                                {% endif %}
+                                </h2>
                                 <!--<span class="price">$30.00</span>-->
                             </div>
                         </div>

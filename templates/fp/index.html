@@ -177,7 +177,11 @@
                             {% endif %}
                         </a>
                         <div class="content-part">
-                            <h3 class="title"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a><p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p></h3>
+                            <h3 class="title"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a>
+                            {% if s.Show_Price %}
+                                <p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p>
+                            {% endif %}
+                            </h3>
                             <div class="desc">{{s.Description|slice:":100"}}</div>
                         </div>
                     </div>
@@ -250,7 +254,11 @@
                             </div>
                             {% endif %}
                             <div class="team-content">
-                                <h3 class="team-name"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a><p class="price"><del style="color:grey;">${{p.Actual_Price}}</del> ${{p.Offer_Price}}</p></h3>    
+                                <h3 class="team-name"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a>
+                                {% if p.Show_Price %}
+                                    <p class="price"><del style="color:grey;">${{p.Actual_Price}}</del> ${{p.Offer_Price}}</p>
+                                {% endif %}
+                                </h3>    
                             </div>
                         </div>
                     {% endfor %}   

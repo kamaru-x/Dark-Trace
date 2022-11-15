@@ -58,9 +58,13 @@
                     <div class="col-md-8 col-sm-12">
                         <div class="single-price-info pl-30 sm-pl-0"><br><br>
                             <h3 class="product-title">{{product.Title}}</h3>
-                            <span class="single-price"><del style="color:grey;">${{product.Actual_Price}}</del>&nbsp ${{product.Offer_Price}}</span>
+                            {% if product.Show_Price %}
+                                <span class="single-price"><del style="color:grey;">${{product.Actual_Price}}</del>&nbsp ${{product.Offer_Price}}</span>
+                            {% endif %}
                             <!-- <p class="some-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> --> <br><br>
-                                 <button class="add-btn ml-10" type="submit" data-toggle="modal" data-target="#get-quote" href="#" opacity="1">Enquire</button>
+                            {% if product.Show_Enquiry %}
+                                <button class="add-btn ml-10" type="submit" data-toggle="modal" data-target="#get-quote" href="#" opacity="1">Enquire</button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -108,7 +112,11 @@
                                                             </div>
                                                             {% endif %}
                                                             <div class="content-desc text-center">
-                                                                <h2 class="loop-product-title pt-15"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a><p class="price"><del style="color:grey;">${{p.Actual_Price}}</del> ${{p.Offer_Price}}</p></h2>
+                                                                <h2 class="loop-product-title pt-15"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a>
+                                                                {% if p.Show_Price %}
+                                                                    <p class="price"><del style="color:grey;">${{p.Actual_Price}}</del> ${{p.Offer_Price}}</p>
+                                                                {% endif %}
+                                                                </h2>
                                                                 <!--<span class="price">$30.00</span>-->
                                                             </div>
                                                         </div>
