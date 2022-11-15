@@ -19,7 +19,8 @@ def index(request):
 
 def test_area(request):
     blogs = Blog.objects.all()
-    return render(request,'test-area.html',{'blogs':blogs})
+    enquiry = Enquiry.objects.all()
+    return render(request,'test-area.html',{'blogs':blogs,'enquiries':enquiry})
 
 ########################################################################
 
@@ -161,6 +162,16 @@ def enquiry(request):
         'enquiries' : enquiries,
     }
     return render(request,'enquiry.html',context)
+
+########################################################################
+
+@login_required
+def view_enquiry(request,eid):
+    enquiry = Enquiry.objects.get(id=eid)
+    context = {
+        'enquiry' : enquiry,
+    }
+    return render(request,'view_enquiry.html',context)
 
 ########################################################################
 

@@ -14,6 +14,7 @@ urlpatterns = [
     path('feedback/',views.feedback,name='feedback'),
     path('remove_feedback/<int:fid>/',views.remove_feedback,name='remove_feedback'),
     path('enquiry/',views.enquiry,name='enquiry'),
+    path('view_enquiry/<int:eid>/',views.view_enquiry,name='view-enquiry'),
     path('remove_enquiry/<int:eid>/',views.remove_enquiry,name='remove_enquiry'),
     path('quick_links/',views.quick_links,name='quick_links'),
     path('manage_menu/',views.manage_menu,name='manage_menu'),

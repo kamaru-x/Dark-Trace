@@ -63,7 +63,7 @@
                             {% endif %}
                             <div class="content-part">
                                 <h3 class="title"><a href="{% url 'service-details' service.Url %}">{{service.Title}}</a> <p class="price"><del style="color:grey;">${{service.Actual_Price}}</del> ${{service.Offer_Price}}</p></h3>
-                                <div class="desc">{{service.Description}}</div>
+                                <div class="desc">{{service.Description|slice:":100"}}</div>
                             </div>
                         </div></a>
                     </div>

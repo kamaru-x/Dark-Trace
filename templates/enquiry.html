@@ -30,11 +30,11 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Email</th>
                   <th scope="col">Mobile</th>
                   <th scop="col">Product</th>
                   <th>Refer No</th>
                   <th scope="col">Date</th>
+                  <th></th>
                   <th></th>
                   <th></th>
                 </tr>
@@ -44,11 +44,13 @@
                 <tr>
                   <th scope="row">{{forloop.counter}}</th>
                   <td>{{enquiry.Name}}</td>
-                  <td>{{enquiry.Email}}</td>
                   <td>{{enquiry.Mobile_Number}}</td>
                   <td>{{enquiry.Product_Name}}</td>
                   <td>{{enquiry.Refer_number}}</td>
                   <td>{{enquiry.Date}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2-{{forloop.counter}}">view</button>
+                  </td>
                   <td>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter-{{forloop.counter}}">Delete</button>
                   </td>
@@ -64,6 +66,53 @@
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <a href="{% url 'remove_enquiry' enquiry.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="modal fade" id="exampleModalCenter2-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                          </div>
+                          <div class="modal-body">
+                            <h4 class="text-center">Details</h4>
+                            <table class="table text-center table-borderless">
+                              <tr>
+                                <td>Name</td>
+                                <td>{{enquiry.Name}}</td>
+                              </tr>
+                              <tr>
+                                <td>Email</td>
+                                <td>{{enquiry.Email}}</td>
+                              </tr>
+                              <tr>
+                                <td>Mobile</td>
+                                <td>{{enquiry.Mobile_Number}}</td>
+                              </tr>
+                              <tr>
+                                <td>Product Name</td>
+                                <td>{{enquiry.Product_Name}}</td>
+                              </tr>
+                              <tr>
+                                <td>Refer</td>
+                                <td>{{enquiry.Refer_number}}</td>
+                              </tr>
+                              <tr>
+                                <td>Date</td>
+                                <td>{{enquiry.Date}}</td>
+                              </tr>
+                              <tr>
+                                <td>District</td>
+                                <td>{{enquiry.District}}</td>
+                              </tr>
+                              <tr>
+                                <td>Address</td>
+                                <td>{{enquiry.Address}}</td>
+                              </tr>
+                            </table>
                           </div>
                         </div>
                       </div>

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+0jt0+aba^#4v6)6pub%wf!we(7kfpp9e30azb^cn=mm)ivtbu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -161,4 +161,4 @@ CKEDITOR_CONFIGS = {
 }
 
 LOGIN_REDIRECT_URL = 'dashboard'
-LOGIN_URL = '/gadmin'
+LOGIN_URL = '/admin'
