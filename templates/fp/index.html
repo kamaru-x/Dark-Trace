@@ -41,7 +41,9 @@
         <div id="rs-slider" class="rs-slider slider3">
             <div class="bend niceties">
                 <div id="nivoSlider" class="slides">
-                    <img src="/media/{{banners.Banner_Image}}" alt="" title="#slide-1" />
+                    <img src="{{bnr1.Banner_Image.url}}" alt="" title="#slide-1" />
+                    <img src="{{bnr2.Banner_Image.url}}" alt="" title="#slide-2" />
+                    <img src="{{bnr2.Banner_Image.url}}" alt="" title="#slide-2" />
                 </div>
                 <!-- Slide 1 -->
                 <div id="slide-1" class="slider-direction">
@@ -49,30 +51,29 @@
                         <div class="container"><br><br>
                             <div class="slider-des">
                                 <!--<div class="sl-subtitle">Sustainable Finance</div>-->
-                                <h1 class="sl-title">{{banners.Caption}}</h1>
+                                <h1 class="sl-title">{{bnr1.Caption}}</h1>
                             </div>
-                            <div class="desc">{{banners.Sub_Caption}}</div>
+                            <div class="desc">{{bnr1.Sub_Caption}} </div>
                             <div class="slider-bottom ">
-                                <a class="readon consultant slider" href="">{{banners.Button_Label}}</a>
+                                <a class="readon consultant slider" href="{{bnr1.Link}}">{{bnr1.Button_Label}}</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Slide 2 -->
-                <!-- <div id="slide-2" class="slider-direction">
+                <div id="slide-2" class="slider-direction">
                     <div class="content-part">
                         <div class="container"><br><br>
                             <div class="slider-des">
-                                #<div class="sl-subtitle">Discover your business</div>#
-                                <h1 class="sl-title">We Promote <br>Your Business</h1>
+                                <h1 class="sl-title">{{bnr2.Caption}}</h1>
                             </div>
-                            <div class="desc">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything. </div>
+                            <div class="desc">{{bnr2.Sub_Caption}}</div>
                             <div class="slider-bottom ">
-                                <a class="readon consultant" href="contact.php">Contact</a>
+                                <a class="readon consultant" href="{{bnr2.Link}}">{{bnr2.Button_Label}}</a>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <!-- Slider End -->

@@ -9,7 +9,9 @@ def home_page(request):
     services = Service.objects.all()
     products = Product.objects.all()
     blogs = Blog.objects.all()
-    banners = Banners.objects.order_by('?').first()
+    banners = Banners.objects.all()
+    bnr1 = Banners.objects.first()
+    bnr2 = Banners.objects.last()
     testimonials = Testimonial.objects.all()
     gof = Group_Of_Companies.objects.all()
     menu = Manage_Menu.objects.last()
@@ -40,6 +42,8 @@ def home_page(request):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'bnr1' : bnr1,
+        'bnr2' : bnr2,
     }
     return render(request,'fp/index.html',context)
 
