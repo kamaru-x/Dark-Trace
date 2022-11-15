@@ -38,9 +38,9 @@ class About(models.Model):
     Description = RichTextField(null=True,blank=True)
     Image = models.ImageField(blank=True,null=True,upload_to='about_us')
     Url = models.CharField(max_length=20000,null=True,unique=True)
-    SMTitle = models.CharField(max_length=2000)
-    SMDescription = models.TextField()
-    SMKeywords = models.CharField(max_length=2000)
+    SMTitle = models.CharField(max_length=2000,blank=True,null=True)
+    SMDescription = models.TextField(blank=True,null=True)
+    SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
 
     def __str__(self):
         return self.Title
@@ -53,9 +53,9 @@ class Blog(models.Model):
     Description = models.TextField()
     Image = models.ImageField(blank=True,null=True,upload_to='blog')
     Url = models.CharField(max_length=20000,unique=True)
-    SMTitle = models.CharField(max_length=2000)
-    SMDescription = models.TextField()
-    SMKeywords = models.CharField(max_length=2000)
+    SMTitle = models.CharField(max_length=2000,blank=True,null=True)
+    SMDescription = models.TextField(blank=True,null=True)
+    SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
 
     class Meta:
         ordering =('-id',)
@@ -67,12 +67,8 @@ class Blog(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
 
-        if img.height > 338 or img.width > 600:
-            output_size = (338,600)
-            img.thumbnail(output_size)
-            img.save(self.Image.path)
-        elif img.height < 338 or img.width < 600:
-            output_size = (338,600)
+        if img.height > 600 or img.width > 600:
+            output_size = (600,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
 
@@ -83,9 +79,9 @@ class Album(models.Model):
     Thumbnail = models.ImageField(blank=True,null=True,upload_to='album')
     Images = models.IntegerField(default=0,)
     Url = models.CharField(max_length=20000,null=True,unique=True)
-    SMTitle = models.CharField(max_length=2000)
-    SMDescription = models.TextField()
-    SMKeywords = models.CharField(max_length=2000)
+    SMTitle = models.CharField(max_length=2000,blank=True,null=True)
+    SMDescription = models.TextField(blank=True,null=True)
+    SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
 
     class Meta:
         ordering =('-id',)
@@ -120,16 +116,16 @@ class Album_Image(models.Model):
 
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
-        img = IMG.open(self.Thumbnail.path)
+        img = IMG.open(self.Image.path)
 
-        if img.height > 450 or img.width > 800:
-            output_size = (450,800)
+        if img.height > 800 or img.width > 800:
+            output_size = (800,800)
             img.thumbnail(output_size)
-            img.save(self.Thumbnail.path)
-        elif img.height < 450 or img.width < 800:
-            output_size = (450,800)
+            img.save(self.Image.path)
+        elif img.height < 800 or img.width < 800:
+            output_size = (800,800)
             img.thumbnail(output_size)
-            img.save(self.Thumbnail.path)
+            img.save(self.Image.path)
 
 ########################################################################
 
@@ -172,7 +168,7 @@ class Product(models.Model):
     Show_Feature = models.BooleanField(default=False, null=True, blank=True)
     Url = models.CharField(max_length=20000,unique=True ,null=True,)
     SMTitle = models.CharField(max_length=2000, null=True, default=None, blank=True)
-    SMDescription = models.TextField()
+    SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000, null=True, default=None, blank=True)
 
     def __str__(self):
@@ -182,12 +178,12 @@ class Product(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
 
-        if img.height > 338 or img.width > 600:
-            output_size = (338,600)
+        if img.height > 600 or img.width > 600:
+            output_size = (600,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
-        elif img.height < 338 or img.width < 600:
-            output_size = (338,600)
+        elif img.height < 600 or img.width < 600:
+            output_size = (600,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
 
@@ -207,7 +203,7 @@ class Service(models.Model):
     Show_Feature = models.BooleanField(default=False, null=True, blank=True)
     Url = models.CharField(max_length=20000,null=True,unique=True)
     SMTitle = models.CharField(max_length=2000, null=True, default=None, blank=True)
-    SMDescription = models.TextField()
+    SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000, null=True, default=None, blank=True)
 
     def __str__(self):
@@ -217,12 +213,12 @@ class Service(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
 
-        if img.height > 338 or img.width > 600:
-            output_size = (338,600)
+        if img.height > 600 or img.width > 600:
+            output_size = (600,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
-        elif img.height < 338 or img.width < 600:
-            output_size = (338,600)
+        elif img.height < 600 or img.width < 600:
+            output_size = (600,600)
             img.thumbnail(output_size)
             img.save(self.Image.path)
 
@@ -281,12 +277,12 @@ class Group_Of_Companies(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Logo.path)
 
-        if img.height > 375 or img.width > 500:
-            output_size = (375,500)
+        if img.height > 500 or img.width > 500:
+            output_size = (500,500)
             img.thumbnail(output_size)
             img.save(self.Logo.path)
-        elif img.height < 375 or img.width < 500:
-            output_size = (375,500)
+        elif img.height < 500 or img.width < 500:
+            output_size = (500,500)
             img.thumbnail(output_size)
             img.save(self.Logo.path)
 
@@ -331,11 +327,11 @@ class Banners(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Banner_Image.path)
 
-        if img.height > 844 or img.width > 1500:
-            output_size = (844,1500)
+        if img.height > 1500 or img.width > 1500:
+            output_size = (1500,1500)
             img.thumbnail(output_size)
             img.save(self.Banner_Image.path)
-        elif img.height < 844 or img.width < 1500:
-            output_size = (844,1500)
+        elif img.height < 1500 or img.width < 1500:
+            output_size = (1500,1500)
             img.thumbnail(output_size)
             img.save(self.Banner_Image.path)
