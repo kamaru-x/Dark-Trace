@@ -93,12 +93,12 @@ class Album(models.Model):
         super().save(*args,**kwargs)
         img = IMG.open(self.Thumbnail.path)
 
-        if img.height > 225 or img.width > 400:
-            output_size = (225,400)
+        if img.height > 400 or img.width > 400:
+            output_size = (400,400)
             img.thumbnail(output_size)
             img.save(self.Thumbnail.path)
-        elif img.height < 225 or img.width < 400:
-            output_size = (225,400)
+        elif img.height < 400 or img.width < 400:
+            output_size = (400,400)
             img.thumbnail(output_size)
             img.save(self.Thumbnail.path)
 

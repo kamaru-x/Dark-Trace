@@ -41,25 +41,23 @@
         <div id="rs-slider" class="rs-slider slider3">
             <div class="bend niceties">
                 <div id="nivoSlider" class="slides">
-                    <img src="{% static 'fp/assets/images/slider/slider1.jpg' %}" alt="" title="#slide-1" />
+                    <img src="/media/{{banners.Banner_Image}}" alt="" title="#slide-1" />
                 </div>
                 <!-- Slide 1 -->
-                {% for banner in banners %}
                 <div id="slide-1" class="slider-direction">
                     <div class="content-part">
                         <div class="container"><br><br>
                             <div class="slider-des">
                                 <!--<div class="sl-subtitle">Sustainable Finance</div>-->
-                                <h1 class="sl-title">{{banner.Caption}}</h1>
+                                <h1 class="sl-title">{{banners.Caption}}</h1>
                             </div>
-                            <div class="desc">{{banner.Sub_Caption}}</div>
+                            <div class="desc">{{banners.Sub_Caption}}</div>
                             <div class="slider-bottom ">
-                                <a class="readon consultant slider" href="{{banner.Link}}">{{banner.Button_Label}}</a>
+                                <a class="readon consultant slider" href="">{{banners.Button_Label}}</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
                 <!-- Slide 2 -->
                 <!-- <div id="slide-2" class="slider-direction">
                     <div class="content-part">
@@ -283,7 +281,7 @@
                                         </div>
                                     {% endif %}
                                     <div class="item-contents">
-                                        <p>{{testimonial.Testimonial|slice:":100"}}</p>
+                                        <p>{{testimonial.Testimonial|slice:':100'}}</p>
                                     </div>
                                     <div class="testi-information">
                                         <div class="testi-name">{{testimonial.Tes_Name}}</div>

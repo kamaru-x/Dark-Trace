@@ -9,7 +9,7 @@ def home_page(request):
     services = Service.objects.all()
     products = Product.objects.all()
     blogs = Blog.objects.all()
-    banners = Banners.objects.all()
+    banners = Banners.objects.order_by('?').first()
     testimonials = Testimonial.objects.all()
     gof = Group_Of_Companies.objects.all()
     menu = Manage_Menu.objects.last()
