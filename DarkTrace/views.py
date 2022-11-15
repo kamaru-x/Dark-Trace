@@ -68,12 +68,25 @@ def footer(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
     context = {
         'services' : services,
         'products' : products,
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/footer.html',context)
 
@@ -86,6 +99,19 @@ def about(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
+
     context = {
         'about' : about,
         'services' : services,
@@ -93,6 +119,8 @@ def about(request):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/about.html',context)
 
@@ -104,12 +132,27 @@ def service_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
+
     context = {
         'services' : services,
         'products' : products,
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/services.html',context)
 
@@ -123,6 +166,18 @@ def service_details(request,url):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
 
     if request.method == 'POST' :
         name = request.POST.get('name')
@@ -148,6 +203,8 @@ def service_details(request,url):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/service-single.html',context)
 
@@ -164,6 +221,18 @@ def product_page(request):
     page = request.GET.get('page')
     product = p.get_page(page)
 
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
+
     context = {
         'products' : products,
         'services' : services,
@@ -171,6 +240,8 @@ def product_page(request):
         'menu' : menu,
         'quick' : quick,
         'product' : product,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/products.html',context)
 
@@ -184,6 +255,18 @@ def product_details(request,url):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
 
     if request.method == 'POST' :
         name = request.POST.get('name')
@@ -209,6 +292,8 @@ def product_details(request,url):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fp' : fp,
+        'fs' : fs,
     }
     return render(request,'fp/products-single.html',context)
 
@@ -228,6 +313,18 @@ def blogs_page(request):
     page = request.GET.get('page')
     blog = p.get_page(page)
 
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
+
     context = {
         'blogs' : blogs,
         'blog3' : blog3,
@@ -236,7 +333,9 @@ def blogs_page(request):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
-        'blog' : blog
+        'blog' : blog,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/blog.html',context)
 
@@ -250,6 +349,19 @@ def blog_detailed(request,url):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
+
     context = {
         'blog' : blog,
         'blog3' : blog3,
@@ -258,6 +370,8 @@ def blog_detailed(request,url):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/blog-details.html',context)
 
@@ -270,6 +384,19 @@ def gallery_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
+
     context = {
         'albums' : albums,
         'services' : services,
@@ -277,6 +404,8 @@ def gallery_page(request):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/gallery.html',context)
 
@@ -289,6 +418,19 @@ def album_page(request,id):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
+
     context = {
         'images' : images,
         'services' : services,
@@ -296,6 +438,8 @@ def album_page(request,id):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fs' : fs,
+        'fp' : fp,
     }
     return render(request,'fp/album-single.html',context)
 
@@ -308,6 +452,18 @@ def contact_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+
+    fs = []
+
+    for x in services:
+        if x.Show_Feature:
+            fs.append(x)
+
+    fp = []
+
+    for x in products:
+        if x.Show_Feature:
+            fp.append(x)
 
     if request.method == 'POST' :
         name = request.POST.get('name')
@@ -326,6 +482,8 @@ def contact_page(request):
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'fp' : fp,
+        'fs' : fs,
     }
     return render(request,'fp/contact.html',context)
 
