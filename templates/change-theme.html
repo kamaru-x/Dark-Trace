@@ -29,24 +29,20 @@
 {% block content %}
     <main class="mx-5">
         <div class="container-fluid p-5">
-            <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-            <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-            <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/js/bootstrap-colorpicker.js" > </script>
-            <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/js/bootstrap-colorpicker.min.js" > </script>
-            <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/css/bootstrap-colorpicker.min.css"/>
-            <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/css/bootstrap-colorpicker.css"/>
-            </head>
-            <body>
-            <h2 class="text-center m-5"> Select Primary Color</h2>
-            <div class = "container" style="height: 15rem;">
-            <input class="form-control" id = "color-picker" type = "text" placeholder = "find color code" />
-            <script>
-            $(function () {
-            $('#color-picker').colorpicker();
-            });
-            </script>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="example-color-input" class="form-control-label text-center">Primary Color</label>
+                <input class="form-control" type="color" name="primary" value="{{color.Primary}}" id="example-color-input">
             </div>
+            <div class="form-group">
+              <label for="example-color-input" class="form-control-label text-center">Secondary Color</label>
+              <input class="form-control" type="color" name="secondary" value="{{color.Secondary}}" id="example-color-input">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary text-center">Set Color</button>
+            </div>
+        </form>
         </div>
     </main>
 {% endblock content %}

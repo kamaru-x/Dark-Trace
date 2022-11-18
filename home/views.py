@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import Contact,Enquiry,Manage_Menu,Product,Quick_Links,Service,Feedback,About,Blog,Album
+from home.models import Contact,Enquiry,Manage_Menu,Product,Quick_Links,Service,Feedback,About,Blog,Album,Theme
 from home.forms import AboutForm
 from django.contrib import messages
 import os
@@ -325,6 +325,18 @@ def signout(request):
     logout(request)
     return redirect('/')
 
+########################################################################
 
 def change_color(request):
-    return render(request,'change-theme.html')
+    color = Theme.objects.last()
+    manage = Manage_Menu.objects.last()
+    if request.method == 'POST' :
+        color.Primary = request.POST.get('primary')
+        color.Secondary = request.POST.get('secondary')
+        color.save()
+        return redirect('/admin/theme')
+    context ={
+        'color' : color,
+        'manage' : manage
+    }
+    return render(request,'change-theme.html',context)

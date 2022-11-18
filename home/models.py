@@ -335,3 +335,9 @@ class Banners(models.Model):
             output_size = (1500,1500)
             img.thumbnail(output_size)
             img.save(self.Banner_Image.path)
+
+########################################################################
+
+class Theme(models.Model):
+    Primary = models.CharField(max_length=10,null=True,blank=True)
+    Secondary = models.CharField(max_length=10,null=True,blank=True)
