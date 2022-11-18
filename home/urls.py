@@ -21,4 +21,5 @@ urlpatterns = [
     path('remove_abt_img/<int:aid>/',views.remove_abt_img,name='remove_abt_img'),
     path('profile/done/',PasswordChangeDoneView.as_view(template_name='change-password.html')),
     path('logout/',views.signout,name='logout'),
+    path('theme/',views.change_color,name='change-theme')
 ]

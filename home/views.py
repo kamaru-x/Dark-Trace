@@ -324,3 +324,7 @@ def user_profile(request):
 def signout(request):
     logout(request)
     return redirect('/')
+
+
+def change_color(request):
+    return render(request,'change-theme.html')
