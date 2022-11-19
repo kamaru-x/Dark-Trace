@@ -328,6 +328,7 @@ def signout(request):
 
 ########################################################################
 
+@login_required
 def change_color(request):
     color = Theme.objects.last()
     manage = Manage_Menu.objects.last()
