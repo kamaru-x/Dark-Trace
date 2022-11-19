@@ -155,7 +155,7 @@
               <li class="nav-item">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="ni ni-support-16 text-pink"></i>
-                  <span class="nav-link-text">Group Of Companies</span>
+                  <span class="nav-link-text">Manage Clients</span>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="{% url 'add_logo' %}">Add Logo</a>
                     <a class="dropdown-item" href="{% url 'manage_logo' %}">Manage Logo</a>
@@ -187,22 +187,21 @@
                 </div>
               </a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'quick_links' %}">
-                  <i class="ni ni-align-left-2 text-orange"></i>
-                <span class="nav-link-text">Quick Links</span>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="ni ni-support-16 text-pink"></i>
+                <span class="nav-link-text">Manage Menu</span>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'manage_menu' %}">Header Menu</a>
+                  <a class="dropdown-item" href="{% url 'quick_links' %}">Footer Menu</a>
+                </div>
               </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'manage_menu' %}">
-                    <i class="ni ni-settings-gear-65 text-blue"></i>
-                  <span class="nav-link-text">Manage Menu</span>
-                </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'change-theme' %}">
                   <i class="ni ni-settings-gear-65 text-blue"></i>
-                <span class="nav-link-text">Change Theme</span>
+                <span class="nav-link-text">Change Color Theme</span>
               </a>
             </li>
           </ul>

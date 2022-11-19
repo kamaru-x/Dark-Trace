@@ -105,35 +105,37 @@
             </div>
             <!-- About Section End -->
             <!-- Partner Section Start -->
-            <div class="rs-patter-section style1 pt-75 pb-75" style="background-color: #000;">
-                <div class="container custom">
-                	<div class="sec-title3 text-center mb-35">
-                            <span class="sub-title"></span>
-                            <h2 class="title pb-25" style="color:#fff;">
-                               Our Group Of Companies
-                            </h2>
-                            <div class="heading-border-line"></div>
+            {% if gof %}
+                <div class="rs-patter-section style1 pt-75 pb-75" style="background-color: #000;">
+                    <div class="container custom">
+                        <div class="sec-title3 text-center mb-35">
+                                <span class="sub-title"></span>
+                                <h2 class="title pb-25" style="color:#fff;">
+                                Our Clients
+                                </h2>
+                                <div class="heading-border-line"></div>
+                            </div>
+                        <div class="rs-carousel owl-carousel" data-loop="true" data-items="5" data-margin="30"
+                            data-autoplay="true" data-hoverpause="true" data-autoplay-timeout="5000" data-smart-speed="800"
+                            data-dots="false" data-nav="false" data-nav-speed="false" data-md-device="5"
+                            data-md-device-nav="false" data-md-device-dots="false" data-center-mode="false"
+                            data-ipad-device2="4" data-ipad-device-nav2="false" data-ipad-device-dots2="true"
+                            data-ipad-device="3" data-ipad-device-nav="false" data-ipad-device-dots="false"
+                            data-mobile-device="2" data-mobile-device-nav="false" data-mobile-device-dots="false">
+                            {% for image in gof %}
+                            <div class="logo-img">
+                                <a href="#">
+                                    <img class="hovers-logos rs-grid-img" src="{{image.Logo.url}}"
+                                        title="" alt="">
+                                    <img class="mains-logos rs-grid-img " src="{{image.Logo.url}}"
+                                        title="" alt="">
+                                </a>
+                            </div>
+                            {% endfor %}   
                         </div>
-                    <div class="rs-carousel owl-carousel" data-loop="true" data-items="5" data-margin="30"
-                        data-autoplay="true" data-hoverpause="true" data-autoplay-timeout="5000" data-smart-speed="800"
-                        data-dots="false" data-nav="false" data-nav-speed="false" data-md-device="5"
-                        data-md-device-nav="false" data-md-device-dots="false" data-center-mode="false"
-                        data-ipad-device2="4" data-ipad-device-nav2="false" data-ipad-device-dots2="true"
-                        data-ipad-device="3" data-ipad-device-nav="false" data-ipad-device-dots="false"
-                        data-mobile-device="2" data-mobile-device-nav="false" data-mobile-device-dots="false">
-                        {% for image in gof %}
-                        <div class="logo-img">
-                            <a href="#">
-                                <img class="hovers-logos rs-grid-img" src="{{image.Logo.url}}"
-                                    title="" alt="">
-                                <img class="mains-logos rs-grid-img " src="{{image.Logo.url}}"
-                                    title="" alt="">
-                            </a>
-                        </div>
-                        {% endfor %}   
                     </div>
                 </div>
-            </div>
+            {% endif %}
             <!-- Partner Section End -->
         </div>
 
@@ -142,51 +144,53 @@
             
         </style>
          <!-- Premium Services Section Start -->
-        <div id="rs-services" class="rs-services style2 gray-bg pt-100 pb-100 md-pt-70 md-pb-70">
-            <div class="container">
-                <div class="row y-middle">
-                        <div class="col-lg-5">
-                           <div class="sec-title mb-50 md-mb-35">
-                               <h2 class="title">
-                                   Our Services
-                               </h2>
-                           </div>
-                        </div>
-                        <div class="col-lg-7 text-right md-left">
-                            <div class="btn-part mb-90 md-mb-50">
-                                <a class="readon consultant discover" href="{% url 'service-page' %}">View Services</a>
+        {% if fs %}
+            <div id="rs-services" class="rs-services style2 gray-bg pt-100 pb-100 md-pt-70 md-pb-70">
+                <div class="container">
+                    <div class="row y-middle">
+                            <div class="col-lg-5">
+                            <div class="sec-title mb-50 md-mb-35">
+                                <h2 class="title">
+                                    Our Services
+                                </h2>
+                            </div>
+                            </div>
+                            <div class="col-lg-7 text-right md-left">
+                                <div class="btn-part mb-90 md-mb-50">
+                                    <a class="readon consultant discover" href="{% url 'service-page' %}">View Services</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <div class="rs-carousel owl-carousel" data-loop="true" data-items="3" data-margin="30"
-                    data-autoplay="true" data-hoverpause="true" data-autoplay-timeout="5000" data-smart-speed="800"
-                    data-dots="true" data-nav="false" data-nav-speed="false" data-md-device="3"
-                    data-md-device-nav="false" data-md-device-dots="true" data-center-mode="false" data-ipad-device2="2"
-                    data-ipad-device-nav2="false" data-ipad-device-dots2="true" data-ipad-device="2"
-                    data-ipad-device-nav="false" data-ipad-device-dots="true" data-mobile-device="1"
-                    data-mobile-device-nav="false" data-mobile-device-dots="true">
-                {% for s in fs %}    
-                    <div class="service-wrap">
-                        <a href="{% url 'service-details' s.Url %}">
-                            {% if s.Image %}
-                                <div class="image-part">
-                                <img src="{{s.Image.url}}" alt="">
-                                </div>
-                            {% endif %}
-                        </a>
-                        <div class="content-part">
-                            <h3 class="title"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a>
-                            {% if s.Show_Price %}
-                                <p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p>
-                            {% endif %}
-                            </h3>
-                            <div class="desc">{{s.Description|slice:":100"}}</div>
+                    <div class="rs-carousel owl-carousel" data-loop="true" data-items="3" data-margin="30"
+                        data-autoplay="true" data-hoverpause="true" data-autoplay-timeout="5000" data-smart-speed="800"
+                        data-dots="true" data-nav="false" data-nav-speed="false" data-md-device="3"
+                        data-md-device-nav="false" data-md-device-dots="true" data-center-mode="false" data-ipad-device2="2"
+                        data-ipad-device-nav2="false" data-ipad-device-dots2="true" data-ipad-device="2"
+                        data-ipad-device-nav="false" data-ipad-device-dots="true" data-mobile-device="1"
+                        data-mobile-device-nav="false" data-mobile-device-dots="true">
+                    {% for s in fs %}    
+                        <div class="service-wrap">
+                            <a href="{% url 'service-details' s.Url %}">
+                                {% if s.Image %}
+                                    <div class="image-part">
+                                    <img src="{{s.Image.url}}" alt="">
+                                    </div>
+                                {% endif %}
+                            </a>
+                            <div class="content-part">
+                                <h3 class="title"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a>
+                                {% if s.Show_Price %}
+                                    <p class="price"><del style="color:grey;">${{s.Actual_Price}}</del> ${{s.Offer_Price}}</p>
+                                {% endif %}
+                                </h3>
+                                <div class="desc">{{s.Description|slice:":100"}}</div>
+                            </div>
                         </div>
+                    {% endfor %}    
                     </div>
-                {% endfor %}    
                 </div>
             </div>
-        </div>
+        {% endif %}
         <!-- Premium Services Section End -->
         
         <style>
@@ -198,6 +202,7 @@
         </style>
 
         <!-- Team Section Start -->
+        {% if fp %}
             <div class="rs-team style1 bg4 pt-100 pb-100 md-pt-70 md-pb-70">
                 <div class="container">
                     <div class="row y-middle">
@@ -263,11 +268,13 @@
                     </div>
                 </div>
             </div>
+        {% endif %}
             <!-- Team Section Start -->
 
           
 
          <!-- Testimonial Section Start -->
+        {% if testimonials %}
             <div class="rs-testimonial style4 home4-testi-style bg22">
                 <div class="testimonial-overly-bg pt-95 pb-100 md-pt-65 md-pb-70">
                     <div class="container custom">
@@ -301,9 +308,11 @@
                     </div>
                 </div>
             </div>
+        {% endif %}
             <!-- Testimonial Section End -->
 
             <!-- Blog Section Start -->
+        {% if blogs %}
             <div id="rs-blog" class="rs-blog blog-main-home bg7 pt-100 pb-100 md-pt-70 md-pb-70">
                 <div class="container">  
                     <div class="sec-title text-center mb-60 md-mb-40">
@@ -335,6 +344,7 @@
                      </div>
                 </div>
             </div>
+        {% endif %}
             <!-- Blog Section End -->
 
     <!-- Footer Start -->

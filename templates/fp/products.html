@@ -67,6 +67,7 @@
                         </select>
                     </div> -->
                 </div>
+                {% if product %}
                 <div class="row">
                     {% for product in product %}
                     <div class="col-lg-4 col-md-6 mb-80 md-mb-40">
@@ -110,6 +111,9 @@
                     </div>
                     {% endif %}
                 </div>
+                {% else %}
+                <h1 class="text-center">No products</h1>
+                {% endif %}
             </div>
         </div>
         <!--Shop part end-->

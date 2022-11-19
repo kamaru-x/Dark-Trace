@@ -10750,7 +10750,7 @@ body .search-modal .close:hover {
     color: #ffffff;
     font-weight: 700;
     line-height: 40px;
-    background: green;
+    background: var(--changer);
     width: 40px;
     height: 40px;
     text-align: center;
