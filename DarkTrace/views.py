@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import About,Service,Product,Blog,Album,Album_Image,Contact,Banners,Testimonial,Group_Of_Companies,Manage_Menu,Quick_Links,Feedback,Enquiry
+from home.models import About,Service,Product,Blog,Album,Album_Image,Contact,Banners,Testimonial,Group_Of_Companies,Manage_Menu,Quick_Links,Feedback,Enquiry,Theme
 from django.core.paginator import Paginator
 # Create your views here.
 
@@ -16,6 +16,7 @@ def home_page(request):
     gof = Group_Of_Companies.objects.all()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -44,6 +45,7 @@ def home_page(request):
         'fp' : fp,
         'bnr1' : bnr1,
         'bnr2' : bnr2,
+        'color' : color,
     }
     return render(request,'fp/index.html',context)
 
@@ -53,10 +55,12 @@ def header(request):
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     contact = Contact.objects.last()
+    color = Theme.objects.last()
     context = {
         'contact' : contact,
         'menu' : menu,
         'quick' : quick,
+        'color' : color
     }
     return render(request,'fp/header.html',context)
 
@@ -68,6 +72,7 @@ def footer(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
     fs = []
 
     for x in services:
@@ -87,6 +92,7 @@ def footer(request):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/footer.html',context)
 
@@ -99,6 +105,7 @@ def about(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -121,6 +128,7 @@ def about(request):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/about.html',context)
 
@@ -132,6 +140,7 @@ def service_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -153,6 +162,7 @@ def service_page(request):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/services.html',context)
 
@@ -166,6 +176,7 @@ def service_details(request,url):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -205,6 +216,7 @@ def service_details(request,url):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/service-single.html',context)
 
@@ -216,6 +228,7 @@ def product_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     p = Paginator(Product.objects.all(),6)
     page = request.GET.get('page')
@@ -242,6 +255,7 @@ def product_page(request):
         'product' : product,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/products.html',context)
 
@@ -255,6 +269,7 @@ def product_details(request,url):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -294,6 +309,7 @@ def product_details(request,url):
         'quick' : quick,
         'fp' : fp,
         'fs' : fs,
+        'color' : color
     }
     return render(request,'fp/products-single.html',context)
 
@@ -307,6 +323,7 @@ def blogs_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
     
 
     p = Paginator(Blog.objects.all(),4)
@@ -336,6 +353,7 @@ def blogs_page(request):
         'blog' : blog,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/blog.html',context)
 
@@ -349,6 +367,7 @@ def blog_detailed(request,url):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -372,6 +391,7 @@ def blog_detailed(request,url):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/blog-details.html',context)
 
@@ -384,6 +404,7 @@ def gallery_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -406,6 +427,7 @@ def gallery_page(request):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/gallery.html',context)
 
@@ -418,6 +440,7 @@ def album_page(request,id):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -440,6 +463,7 @@ def album_page(request,id):
         'quick' : quick,
         'fs' : fs,
         'fp' : fp,
+        'color' : color
     }
     return render(request,'fp/album-single.html',context)
 
@@ -452,6 +476,7 @@ def contact_page(request):
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
+    color = Theme.objects.last()
 
     fs = []
 
@@ -484,7 +509,12 @@ def contact_page(request):
         'quick' : quick,
         'fp' : fp,
         'fs' : fs,
+        'color' : color
     }
     return render(request,'fp/contact.html',context)
 
 #####################################################################
+
+def processor(request):
+    color = Theme.objects.last()
+    return render(request,'processor.html',{'color':color})

@@ -24,7 +24,8 @@ def index(request):
 def test_area(request):
     blogs = Blog.objects.all()
     enquiry = Enquiry.objects.all()
-    return render(request,'test-area.html',{'blogs':blogs,'enquiries':enquiry})
+    color = Theme.objects.last()
+    return render(request,'test-area.html',{'blogs':blogs,'enquiries':enquiry,'color':color})
 
 ########################################################################
 
