@@ -7,7 +7,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.decorators import login_required
-
+from django.http import HttpResponse
+import datetime
+import xlwt
 # Create your views here.
 
 ########################################################################
@@ -342,3 +344,61 @@ def change_color(request):
         'manage' : manage
     }
     return render(request,'change-theme.html',context)
+
+########################################################################
+
+def export_feedbacks(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=Feedbacks' + str(datetime.datetime.now())+'.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Feedbacks')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Date','Name','Email','Contact','Website','Message']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num,col_num,columns[col_num],font_style)
+
+    font_style = xlwt.XFStyle()
+
+    rows = Feedback.objects.all().values_list('Date','Name','Email','Contact','Website','Message')
+
+    for row in rows:
+        row_num+=1
+
+        for col_num in range(len(row)):
+            ws.write(row_num,col_num,str(row[col_num]),font_style)
+    wb.save(response)
+
+    return response
+
+########################################################################
+
+def export_enquiries(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=Enquiries' + str(datetime.datetime.now())+'.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Enquiries')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Date','Name','Mobile_Number','Email','Product_Name','Refer_number','Whatsapp','District','Address']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num,col_num,columns[col_num],font_style)
+
+    font_style = xlwt.XFStyle()
+
+    rows = Enquiry.objects.all().values_list('Date','Name','Mobile_Number','Email','Product_Name','Refer_number','Whatsapp','District','Address')
+
+    for row in rows:
+        row_num+=1
+
+        for col_num in range(len(row)):
+            ws.write(row_num,col_num,str(row[col_num]),font_style)
+    wb.save(response)
+
+    return response
