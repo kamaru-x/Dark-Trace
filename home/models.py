@@ -19,7 +19,7 @@ class Feedback(models.Model):
     # default
     Date = models.DateTimeField(auto_now_add=True , null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete = models.CASCADE , default=1)
+    # AddedBy = models.ForeignKey(User, on_delete = models.CASCADE , default=1)
     Ip = models.GenericIPAddressField(null=True)
 
     # Additional
@@ -299,7 +299,7 @@ class Enquiry(models.Model):
     # default
     Date = models.DateTimeField(auto_now_add=True , null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    # AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
     Ip = models.GenericIPAddressField(null=True)
 
     # additional
