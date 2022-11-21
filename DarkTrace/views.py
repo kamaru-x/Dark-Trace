@@ -1,19 +1,20 @@
 from django.shortcuts import render,redirect
 from home.models import About,Service,Product,Blog,Album,Album_Image,Contact,Banners,Testimonial,Group_Of_Companies,Manage_Menu,Quick_Links,Feedback,Enquiry,Theme
 from django.core.paginator import Paginator
+from datetime import datetime
 # Create your views here.
 
 def home_page(request):
     about = About.objects.last()
     contact = Contact.objects.last()
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
-    blogs = Blog.objects.filter(Status=False)
-    banners = Banners.objects.filter(Status=False)
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
+    blogs = Blog.objects.filter(Status=1)
+    banners = Banners.objects.filter(Status=1)
     bnr1 = Banners.objects.first()
     bnr2 = Banners.objects.last()
-    testimonials = Testimonial.objects.filter(Status=False)
-    gof = Group_Of_Companies.objects.filter(Status=False)
+    testimonials = Testimonial.objects.filter(Status=1)
+    gof = Group_Of_Companies.objects.filter(Status=1)
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     color = Theme.objects.last()
@@ -67,8 +68,8 @@ def header(request):
 #####################################################################
 
 def footer(request):
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -99,8 +100,8 @@ def footer(request):
 #####################################################################
 
 def about(request):
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     about = About.objects.last()
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
@@ -135,8 +136,8 @@ def about(request):
 #####################################################################
 
 def service_page(request):
-    products = Product.objects.filter(Status=False)
-    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=1)
+    services = Service.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -169,10 +170,10 @@ def service_page(request):
 #####################################################################
 
 def service_details(request,url):
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     service = Service.objects.get(Url=url)
-    ser3 = Service.objects.filter(Status=False).order_by('-id')[:3]
+    ser3 = Service.objects.filter(Status=1).order_by('-id')[:3]
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -190,6 +191,8 @@ def service_details(request,url):
         if x.Show_Feature:
             fp.append(x)
 
+    date = datetime.now()
+
     if request.method == 'POST' :
         name = request.POST.get('name')
         mobile = request.POST.get('mobile')
@@ -201,7 +204,7 @@ def service_details(request,url):
         sname= service.Title
         refer = service.Refer_number
 
-        data = Enquiry(Name=name,Mobile_Number=mobile,Email=email,Product_Name=sname,Whatsapp=whatsapp,
+        data = Enquiry(Date=date,Name=name,Mobile_Number=mobile,Email=email,Product_Name=sname,Whatsapp=whatsapp,
         District=district,Address=address,Refer_number=refer)
         data.save()
         return redirect('/service-details/%s' %service.Url)
@@ -223,14 +226,14 @@ def service_details(request,url):
 #####################################################################
 
 def product_page(request):
-    products = Product.objects.filter(Status=False)
-    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=1)
+    services = Service.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     color = Theme.objects.last()
 
-    p = Paginator(Product.objects.filter(Status=False),6)
+    p = Paginator(Product.objects.filter(Status=1),6)
     page = request.GET.get('page')
     product = p.get_page(page)
 
@@ -262,10 +265,10 @@ def product_page(request):
 #####################################################################
 
 def product_details(request,url):
-    products = Product.objects.filter(Status=False)
+    products = Product.objects.filter(Status=1)
     product = Product.objects.get(Url=url)
-    pro3 = Product.objects.filter(Status=False).order_by('-id')[:3]
-    services = Service.objects.filter(Status=False)
+    pro3 = Product.objects.filter(Status=1).order_by('-id')[:3]
+    services = Service.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -283,6 +286,8 @@ def product_details(request,url):
         if x.Show_Feature:
             fp.append(x)
 
+    date = datetime.now()
+
     if request.method == 'POST' :
         name = request.POST.get('name')
         mobile = request.POST.get('mobile')
@@ -294,7 +299,7 @@ def product_details(request,url):
         pname= product.Title
         refer = product.Refer_number
 
-        data = Enquiry(Name=name,Mobile_Number=mobile,Email=email,Product_Name=pname,Whatsapp=whatsapp,
+        data = Enquiry(Date=date,Name=name,Mobile_Number=mobile,Email=email,Product_Name=pname,Whatsapp=whatsapp,
         District=district,Address=address,Refer_number=refer)
         data.save()
         return redirect('/product-details/%s' %product.Url)
@@ -316,17 +321,17 @@ def product_details(request,url):
 #####################################################################
 
 def blogs_page(request):
-    blogs = Blog.objects.filter(Status=False)
-    blog3 = Blog.objects.filter(Status=False).order_by('id')[:3]
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    blogs = Blog.objects.filter(Status=1)
+    blog3 = Blog.objects.filter(Status=1).order_by('id')[:3]
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     color = Theme.objects.last()
     
 
-    p = Paginator(Blog.objects.filter(Status=False),4)
+    p = Paginator(Blog.objects.filter(Status=1),4)
     page = request.GET.get('page')
     blog = p.get_page(page)
 
@@ -361,9 +366,9 @@ def blogs_page(request):
 
 def blog_detailed(request,url):
     blog = Blog.objects.get(Url=url)
-    blog3 = Blog.objects.filter(Status=False).order_by('id')[:3]
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    blog3 = Blog.objects.filter(Status=1).order_by('id')[:3]
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -398,9 +403,9 @@ def blog_detailed(request,url):
 #####################################################################
 
 def gallery_page(request):
-    albums = Album.objects.filter(Status=False)
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    albums = Album.objects.filter(Status=1)
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -435,8 +440,8 @@ def gallery_page(request):
 
 def album_page(request,id):
     images = Album_Image.objects.filter(Album_Name=id)
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -471,8 +476,8 @@ def album_page(request,id):
 
 def contact_page(request):
     contact = Contact.objects.last()
-    services = Service.objects.filter(Status=False)
-    products = Product.objects.filter(Status=False)
+    services = Service.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -490,13 +495,15 @@ def contact_page(request):
         if x.Show_Feature:
             fp.append(x)
 
+    date = datetime.now()
+
     if request.method == 'POST' :
         name = request.POST.get('name')
         email = request.POST.get('email')
         mobile = request.POST.get('phone')
         message = request.POST.get('message')
         website = request.POST.get('subject')
-        data = Feedback(Name=name,Email=email,Contact=mobile,Message=message,Website=website)
+        data = Feedback(Date=date,Name=name,Email=email,Contact=mobile,Message=message,Website=website)
         data.save()
         return redirect('.')
 
