@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 
 class Feedback(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
     # AddedBy = models.ForeignKey(User, on_delete = models.CASCADE , default=1)
     Ip = models.GenericIPAddressField(null=True)
@@ -39,10 +39,14 @@ class Feedback(models.Model):
 
 class About(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Title = models.CharField(max_length=50)
@@ -64,10 +68,14 @@ class About(models.Model):
 
 class Blog(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Title = models.CharField(max_length=50)
@@ -100,10 +108,14 @@ class Blog(models.Model):
 
 class Album(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Title = models.CharField(max_length=50)
@@ -140,10 +152,14 @@ class Album(models.Model):
 ########################################################################
 
 class Album_Image(models.Model):
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Album_Name = models.ForeignKey(Album, on_delete=models.CASCADE)
@@ -173,10 +189,14 @@ class Album_Image(models.Model):
 
 class Contact(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Company_Name = models.CharField(max_length=50,null=True)
@@ -207,10 +227,14 @@ class Contact(models.Model):
 
 class Product(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Title = models.CharField(max_length=50, null=True, default=None, blank=True)
@@ -252,10 +276,14 @@ class Product(models.Model):
 
 class Service(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Title = models.CharField(max_length=50, null=True, default=None, blank=True)
@@ -297,9 +325,9 @@ class Service(models.Model):
 
 class Enquiry(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    # AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    # AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
 
     # additional
@@ -322,10 +350,14 @@ class Enquiry(models.Model):
 
 class Manage_Menu(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     About_Page = models.BooleanField(default=False, null=True, blank=True)
@@ -343,10 +375,14 @@ class Manage_Menu(models.Model):
 
 class Quick_Links(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     About_Page = models.BooleanField(default=False, null=True, blank=True)
@@ -363,10 +399,14 @@ class Quick_Links(models.Model):
 
 class Group_Of_Companies(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Logo = models.ImageField(blank=True,null=True,upload_to='CompanyLogo')
@@ -389,10 +429,14 @@ class Group_Of_Companies(models.Model):
 
 class Testimonial(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Tes_Name = models.CharField(max_length=50)
@@ -422,10 +466,14 @@ class Testimonial(models.Model):
 
 class Banners(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Caption = models.CharField(max_length=100)
@@ -455,10 +503,14 @@ class Banners(models.Model):
 
 class Theme(models.Model):
     # default
-    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Date = models.DateTimeField(null=True)
     Status = models.IntegerField(default=1)
-    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    AddedBy = models.IntegerField(default=0)
     Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
 
     # additional
     Primary = models.CharField(max_length=10,null=True,blank=True)

@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from home.models import Service,Contact,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 # Create your views here.
 
 @login_required
@@ -31,7 +32,9 @@ def services(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
-        user = request.user
+        user = request.user.id
+
+        date = datetime.now()
         
         x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forw_for is not None:
@@ -39,7 +42,7 @@ def services(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
 
-        Data = Service(AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
+        Data = Service(Date=date,AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
         Actual_Price=actual_price,Offer_Price=offer_price,Show_Whatsapp=whatsapp,Whatsapp_Number=number,
         Show_Enquiry=show_enquiry,Show_Feature=show_feature,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
@@ -73,7 +76,7 @@ def edit_service(request,sid):
     contact = Contact.objects.last()
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -86,8 +89,9 @@ def edit_service(request,sid):
         #     if len(service.Image) > 0:
         #         os.remove(service.Image.path)
             service.Image = request.FILES['image']
-        service.AddedBy = user
-        service.Ip = ip
+        service.EditedBy = user
+        service.EditedIp = ip
+        service.Edited_Date = datetime.now()
         service.Title = request.POST.get('title')
         service.Description = request.POST.get('description')
         service.Show_Price = request.POST.get('check1')

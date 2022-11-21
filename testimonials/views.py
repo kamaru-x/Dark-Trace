@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from home.models import Testimonial,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 # Create your views here.
 
 @login_required
@@ -14,7 +15,9 @@ def add_testimonial(request):
         image = request.FILES['image']
         testimonial = request.POST.get('testimonial')
 
-        user = request.user
+        user = request.user.id
+
+        date = datetime.now()
         
         x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forw_for is not None:
@@ -22,7 +25,7 @@ def add_testimonial(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
 
-        data = Testimonial(AddedBy=user,Ip=ip,Tes_Name=name,Designation=designation,Company_Name=cname,Testimonial=testimonial,Tes_Image=image)
+        data = Testimonial(Date=date,AddedBy=user,Ip=ip,Tes_Name=name,Designation=designation,Company_Name=cname,Testimonial=testimonial,Tes_Image=image)
         data.save()
         messages.success(request,'testimonial added')
         return redirect('add_testimonial')
@@ -51,7 +54,7 @@ def edit_testimonial(request,tid):
     testimonial = Testimonial.objects.get(id=tid)
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -64,8 +67,9 @@ def edit_testimonial(request,tid):
         #     if len(testimonial.Image) > 0:
         #         os.remove(testimonial.Image.path)
             testimonial.Tes_Image = request.FILES['image']
-        testimonial.AddedBy = user
-        testimonial.Ip = ip
+        testimonial.EditedBy = user
+        testimonial.EditedIp = ip
+        testimonial.Edited_Date = datetime.now()
         testimonial.Tes_Name = request.POST.get('name')
         testimonial.Designation = request.POST.get('designation')
         testimonial.Company_Name = request.POST.get('cname')

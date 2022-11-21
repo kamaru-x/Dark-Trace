@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from home.models import Group_Of_Companies,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 # Create your views here.
 
 @login_required
@@ -10,7 +11,9 @@ def add_logo(request):
     if request.method == 'POST' :
         image = request.FILES.getlist('image')
 
-        user = request.user
+        user = request.user.id
+
+        date = datetime.now()
         
         x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forw_for is not None:
@@ -19,7 +22,7 @@ def add_logo(request):
             ip = request.META.get('REMOTE_ADDR')
 
         for img in image :
-            data = Group_Of_Companies(AddedBy=user,Ip=ip,Logo=img)
+            data = Group_Of_Companies(Date=date,AddedBy=user,Ip=ip,Logo=img)
             data.save()
         messages.success(request,'logo added')
         return redirect('add_logo')

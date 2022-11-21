@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-import datetime
+from datetime import datetime
 import xlwt
 # Create your views here.
 
@@ -24,7 +24,7 @@ def index(request):
 ########################################################################
 
 def test_area(request):
-    user = request.user
+    user = request.user.id
     print(user)
     return render(request,'test-area.html')
 
@@ -101,7 +101,9 @@ def contact_us(request):
     contact = Contact.objects.last()
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
+
+    date = datetime.now()
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -115,8 +117,9 @@ def contact_us(request):
         #         if len(contact.Image) > 0:
         #             os.remove(contact.Image.path)
                 contact.Image = request.FILES['image']
-            contact.AddedBy = user
-            contact.Ip = ip
+            contact.EditedBy = user
+            contact.EditedIp = ip
+            contact.Edited_Date = datetime.now()
             contact.Company_Name = request.POST.get('title')
             contact.Mobile = request.POST.get('mobile')
             contact.Telephone = request.POST.get('telephone')
@@ -157,7 +160,7 @@ def contact_us(request):
             smdescription = request.POST.get('smdescription')
             smkeywords = request.POST.get('smkeywords')
 
-            user = request.user
+            user = request.user.id
         
             x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
             if x_forw_for is not None:
@@ -165,7 +168,7 @@ def contact_us(request):
             else:
                 ip = request.META.get('REMOTE_ADDR')
 
-            data = Contact(AddedBy=user,Ip=ip,Company_Name=title,Adress=address,Telephone=telephone,
+            data = Contact(Date=date,AddedBy=user,Ip=ip,Company_Name=title,Adress=address,Telephone=telephone,
             Mobile=mobile,Whatsapp=whatsapp,Email=email,Website=website,Longitude=longitude,
             Latitude=latitude,Facebook=facebook,Instagram=instagram,Linkedin=linkedin,
             Twitter=twitter,Image=image,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
@@ -213,7 +216,7 @@ def view_enquiry(request,eid):
 def manage_menu(request):
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -233,8 +236,9 @@ def manage_menu(request):
             manage.Feedback_Page = request.POST.get('feedback')
             manage.Enquiry_Page = request.POST.get('enquiry')
             manage.Group_Company = request.POST.get('gop')
-            manage.AddedBy = user
-            manage.Ip = ip
+            manage.EditedBy = user
+            manage.Edited_Date = datetime.now()
+            manage.EditedIp = ip
             manage.save()
             
             messages.success(request,'manage manu edited successfully ...!')
@@ -251,7 +255,9 @@ def manage_menu(request):
             enquiry = request.POST.get('enquiry')
             gop = request.POST.get('gop')
 
-            user = request.user
+            user = request.user.id
+
+            date = datetime.now()
         
             x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
             if x_forw_for is not None:
@@ -259,7 +265,7 @@ def manage_menu(request):
             else:
                 ip = request.META.get('REMOTE_ADDR')
             
-            data = Manage_Menu(AddedBy=user,Ip=ip,About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
+            data = Manage_Menu(Date=date,AddedBy=user,Ip=ip,About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
             Products_Page=products,Service_Page=services,Testimonials=testimonials,Feedback_Page=feedback,
             Enquiry_Page=enquiry,Group_Company=gop)
             data.save()
@@ -278,7 +284,7 @@ def quick_links(request):
     quick = Quick_Links.objects.last()
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -297,8 +303,9 @@ def quick_links(request):
             quick.Testimonials = request.POST.get('testimonials')
             quick.Optional_Products = request.POST.get('op-products')
             quick.Optional_Service = request.POST.get('op-services')
-            quick.AddedBy = user
-            quick.Ip = ip
+            quick.EditedBy = user
+            quick.EditedIp = ip
+            quick.Edited_Date = datetime.now()
             quick.save()
             messages.success(request,'quick links edited successfully ...!')
             return redirect('quick_links')
@@ -313,7 +320,9 @@ def quick_links(request):
             op_products = request.POST.get('op-products')
             op_services = request.POST.get('op-services')
 
-            user = request.user
+            user = request.user.id
+
+            date = datetime.now()
         
             x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
             if x_forw_for is not None:
@@ -321,7 +330,7 @@ def quick_links(request):
             else:
                 ip = request.META.get('REMOTE_ADDR')
 
-            data = Quick_Links(AddedBy=user,Ip=ip,About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
+            data = Quick_Links(Date=date,AddedBy=user,Ip=ip,About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
             Products_Page=products,Service_Page=services,Testimonials=testimonials,Optional_Products=op_products,Optional_Service=op_services)
             data.save()
             messages.success(request,'quick links edited successfully ...!')
@@ -394,7 +403,7 @@ def change_color(request):
     color = Theme.objects.last()
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -405,8 +414,9 @@ def change_color(request):
     if request.method == 'POST' :
         color.Primary = request.POST.get('primary')
         color.Secondary = request.POST.get('secondary')
-        color.AddedBy = user
-        color.Ip = ip
+        color.EditedBy = user
+        color.EditedIp = ip
+        color.Edited_Date = datetime.now()
         color.save()
         return redirect('/admin/theme')
     context ={

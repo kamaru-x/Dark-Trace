@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from home.models import Blog,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 # Create your views here.
 
 ########################################################################
@@ -18,7 +19,9 @@ def blog(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
-        user = request.user
+        user = request.user.id
+
+        date = datetime.now()
         
         x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forw_for is not None:
@@ -26,7 +29,7 @@ def blog(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
         
-        Data = Blog(AddedBy=user,Ip=ip,Title=title,Description=description,Image=image,Url=url,SMTitle=smtitle,
+        Data = Blog(Date=date,AddedBy=user,Ip=ip,Title=title,Description=description,Image=image,Url=url,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'new blog added successfully.....!')
@@ -52,7 +55,7 @@ def edit_blog(request,bid):
     manage = Manage_Menu.objects.last()
     blog = Blog.objects.get(id=bid)
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -72,8 +75,9 @@ def edit_blog(request,bid):
         blog.SMTitle = request.POST.get('smtitle')
         blog.SMDescription = request.POST.get('smdescription')
         blog.SMKeywords = request.POST.get('smkeywords')
-        blog.AddedBy = user
-        blog.Ip = ip
+        blog.EditedBy = user
+        blog.EditedIp = ip
+        blog.Edited_Date = datetime.now()
         blog.save()
         messages.success(request,'blog edited successfull...!')
         return redirect('.')

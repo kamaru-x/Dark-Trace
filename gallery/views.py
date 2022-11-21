@@ -3,6 +3,7 @@ from home.models import Album,Album_Image,Manage_Menu
 from home.forms import AboutForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 # Create your views here.
 
@@ -19,7 +20,9 @@ def create_album(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
-        user = request.user
+        user = request.user.id
+
+        date = datetime.now()
         
         x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forw_for is not None:
@@ -27,7 +30,7 @@ def create_album(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
         
-        Data = Album(AddedBy=user,Ip=ip,Title=title,Thumbnail=image,Url=url,SMTitle=smtitle,
+        Data = Album(Date=date,AddedBy=user,Ip=ip,Title=title,Thumbnail=image,Url=url,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'album created successfully...!')
@@ -58,7 +61,9 @@ def upload_image(request):
     manage = Manage_Menu.objects.last()
     albums = Album.objects.all()
 
-    user = request.user
+    user = request.user.id
+
+    date = datetime.now()
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -77,7 +82,7 @@ def upload_image(request):
         album.save()
 
         for img in image: 
-            Data = Album_Image(AddedBy=user,Ip=ip,Album_Name=album,Image=img,)
+            Data = Album_Image(Date=date,AddedBy=user,Ip=ip,Album_Name=album,Image=img,)
             Data.save()
         messages.success(request,'image uploaded successfully ...!')
         return redirect('upload_image')
@@ -107,7 +112,7 @@ def edit_album(request,aid):
     images = Album_Image.objects.filter(Album_Name=aid)
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -121,8 +126,9 @@ def edit_album(request,aid):
         #             os.remove(album.Image.path)
             album.Thumbnail = request.FILES['image']
         album.Title = request.POST.get('name')
-        album.AddedBy = user
-        album.Ip = ip
+        album.EditedBy = user
+        album.EditedIp = ip
+        album.Edited_Date = datetime.now()
         album.save()
         messages.success(request,'album details edited successfully')
         return redirect('edit_album/%s' %album.id)

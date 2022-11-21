@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from home.models import Product,Contact,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 # Create your views here.
 
@@ -33,7 +34,9 @@ def products(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
-        user = request.user
+        user = request.user.id
+
+        date = datetime.now()
         
         x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forw_for is not None:
@@ -41,7 +44,7 @@ def products(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
 
-        Data = Product(AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
+        Data = Product(Date=date,AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
         Actual_Price=actual_price,Offer_Price=offer_price,Show_Whatsapp=whatsapp,Whatsapp_Number=number,
         Show_Enquiry=show_enquiry,Show_Feature=show_feature,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
@@ -76,7 +79,7 @@ def edit_product(request,pid):
     contact = Contact.objects.last()
     manage = Manage_Menu.objects.last()
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -89,8 +92,9 @@ def edit_product(request,pid):
         #     if len(product.Image) > 0:
         #         os.remove(product.Image.path)
             product.Image = request.FILES['image']
-        product.AddedBy = user
-        product.Ip = ip
+        product.EditedBy = user
+        product.EditedIp = ip
+        product.Edited_Date = datetime.now()
         product.Title = request.POST.get('title')
         product.Description = request.POST.get('description')
         product.Show_Price = request.POST.get('check1')

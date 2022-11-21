@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from home.models import Banners,Manage_Menu
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 # Create your views here.
 
@@ -15,7 +16,9 @@ def banner(request):
         link = request.POST.get('link')
         image = request.FILES['image']
 
-        user = request.user
+        user = request.user.id
+
+        date = datetime.now()
         
         x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forw_for is not None:
@@ -25,7 +28,7 @@ def banner(request):
 
         
 
-        data = Banners (AddedBy=user,Ip=ip,Caption=caption,Sub_Caption=scaption,Button_Label=label,Link=link,Banner_Image=image)
+        data = Banners (Date=date,AddedBy=user,Ip=ip,Caption=caption,Sub_Caption=scaption,Button_Label=label,Link=link,Banner_Image=image)
         data.save()
         messages.success(request,'banner added')
         return redirect('banner')
@@ -55,7 +58,7 @@ def edit_banner(request,bid):
     manage = Manage_Menu.objects.last()
     banner = Banners.objects.get(id=bid)
 
-    user = request.user
+    user = request.user.id
         
     x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forw_for is not None:
@@ -72,8 +75,9 @@ def edit_banner(request,bid):
         banner.Sub_Caption = request.POST.get('scaption')
         banner.Button_Label = request.POST.get('label')
         banner.Link = request.POST.get('link')
-        banner.AddedBy = user
-        banner.Ip = ip
+        banner.EditedBy = user
+        banner.EditedIp = ip
+        banner.Edited_Date = datetime.now()
         banner.save()
         messages.success(request,'banner edited')
         return redirect('.')
