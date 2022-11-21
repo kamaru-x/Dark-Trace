@@ -31,7 +31,7 @@ def banner(request):
 @login_required
 def manage_banner(request):
     manage = Manage_Menu.objects.last()
-    banners = Banners.objects.all()
+    banners = Banners.objects.filter(Status=False)
     context = {
         'banners' : banners,
         'manage' : manage
@@ -68,7 +68,8 @@ def edit_banner(request,bid):
 def remove_banner(request,bid):
     banner = Banners.objects.get(id=bid)
 
-    banner.delete()
+    banner.Status = True
+    banner.save()
     messages.success(request,'banner deleted')
     return redirect('manage_banner')
 

@@ -159,7 +159,7 @@ def contact_us(request):
 
 @login_required
 def feedback(request):
-    feedbacks = Feedback.objects.all()
+    feedbacks = Feedback.objects.filter(Status = False)
     manage = Manage_Menu.objects.last()
     context = {
         'feedbacks' : feedbacks,
@@ -171,7 +171,7 @@ def feedback(request):
 
 @login_required
 def enquiry(request):
-    enquiries = Enquiry.objects.all()
+    enquiries = Enquiry.objects.filter(Status = False)
     manage = Manage_Menu.objects.last()
     context = {
         'enquiries' : enquiries,
@@ -291,7 +291,8 @@ def remove_abt_img(request,aid):
 @login_required
 def remove_feedback(request,fid):
     feedback = Feedback.objects.get(id=fid)
-    feedback.delete()
+    feedback.Status = True
+    feedback.save()
     return redirect('feedback')
 
 ########################################################################
@@ -299,7 +300,8 @@ def remove_feedback(request,fid):
 @login_required
 def remove_enquiry(request,eid):
     enquiry = Enquiry.objects.get(id=eid)
-    enquiry.delete()
+    enquiry.Status = True
+    enquiry.save()
     return redirect('enquiry')
 
 ########################################################################

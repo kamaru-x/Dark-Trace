@@ -49,7 +49,7 @@ def services(request):
 
 @login_required
 def manage_service(request):
-    services = Service.objects.all()
+    services = Service.objects.filter(Status = False)
     manage = Manage_Menu.objects.last()
     context = {
         'services' : services,
@@ -98,7 +98,8 @@ def edit_service(request,sid):
 def remove_service(request,sid):
     service = Service.objects.get(id=sid)
 
-    service.delete()
+    service.Status = True
+    service.save()
     messages.success(request,'service deleted')
     return redirect('manage_service')
 

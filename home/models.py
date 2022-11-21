@@ -21,6 +21,7 @@ class Feedback(models.Model):
     Contact = models.CharField(max_length=15)
     Website = models.CharField(max_length=50)
     Message = models.TextField()
+    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -53,6 +54,7 @@ class Blog(models.Model):
     Description = models.TextField()
     Image = models.ImageField(blank=True,null=True,upload_to='blog')
     Url = models.CharField(max_length=20000,unique=True)
+    Status = models.BooleanField(default=False)
     SMTitle = models.CharField(max_length=2000,blank=True,null=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
@@ -82,6 +84,7 @@ class Album(models.Model):
     SMTitle = models.CharField(max_length=2000,blank=True,null=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
+    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -107,6 +110,7 @@ class Album(models.Model):
 class Album_Image(models.Model):
     Album_Name = models.ForeignKey(Album, on_delete=models.CASCADE)
     Image = models.ImageField(blank=True,null=True,upload_to='album-image')
+    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -167,6 +171,7 @@ class Product(models.Model):
     Show_Enquiry = models.BooleanField(default=False, null=True, blank=True)
     Show_Feature = models.BooleanField(default=False, null=True, blank=True)
     Url = models.CharField(max_length=20000,unique=True ,null=True,)
+    Status = models.BooleanField(default=False)
     SMTitle = models.CharField(max_length=2000, null=True, default=None, blank=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000, null=True, default=None, blank=True)
@@ -202,6 +207,7 @@ class Service(models.Model):
     Show_Enquiry = models.BooleanField(default=False, null=True, blank=True)
     Show_Feature = models.BooleanField(default=False, null=True, blank=True)
     Url = models.CharField(max_length=20000,null=True,unique=True)
+    Status = models.BooleanField(default=False)
     SMTitle = models.CharField(max_length=2000, null=True, default=None, blank=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000, null=True, default=None, blank=True)
@@ -234,6 +240,7 @@ class Enquiry(models.Model):
     District = models.CharField(max_length=25,null=True)
     Address = models.TextField()
     Refer_number = models.CharField(max_length=6,null=True, default=None, blank=True)
+    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -272,6 +279,7 @@ class Quick_Links(models.Model):
 
 class Group_Of_Companies(models.Model):
     Logo = models.ImageField(blank=True,null=True,upload_to='CompanyLogo')
+    Status = models.BooleanField(default=False)
 
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -294,6 +302,7 @@ class Testimonial(models.Model):
     Company_Name = models.CharField(max_length=50)
     Testimonial = models.TextField()
     Tes_Image = models.ImageField(blank=True,null=True,upload_to='TestimonialImage')
+    Status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.Tes_Name
@@ -319,6 +328,7 @@ class Banners(models.Model):
     Button_Label = models.CharField(max_length=30)
     Link = models.CharField(max_length=1000)
     Banner_Image = models.ImageField(blank=True,null=True,upload_to='BannerImage')
+    Status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.Caption

@@ -75,7 +75,7 @@ def upload_image(request):
 
 @login_required
 def manage_album(request):
-    albums = Album.objects.all()
+    albums = Album.objects.filter(Status=False)
     manage = Manage_Menu.objects.last()
     context = {
         'albums' : albums,
@@ -111,7 +111,8 @@ def edit_album(request,aid):
 @login_required
 def remove(request,aid):
     album = Album.objects.get(id=aid)
-    album.delete()
+    album.Status = True
+    album.save()
     messages.success(request,'album deleted successfully')
     return redirect('manage_album')
 
@@ -121,7 +122,8 @@ def remove(request,aid):
 def remove_image(request,aid,iid):
     album = Album.objects.get(id=aid) 
     image = Album_Image.objects.get(id=iid)
-    image.delete()
+    image.Status = True
+    image.save()
     messages.success(request,'image deleted successfully')
     return redirect('/admin/edit_album/%s' %album.id)
 

@@ -27,7 +27,7 @@ def add_logo(request):
 @login_required
 def manage_logo(request):
     manage = Manage_Menu.objects.last()
-    logos = Group_Of_Companies.objects.all()
+    logos = Group_Of_Companies.objects.filter(Status = False)
     context = {
         'logos' : logos,
         'manage' : manage,
@@ -40,7 +40,8 @@ def manage_logo(request):
 def remove_logo(request,lid):
     logo = Group_Of_Companies.objects.get(id=lid)
 
-    logo.delete()
+    logo.Status = True
+    logo.save()
     messages.success(request,'logo deleted')
     return redirect('manage_logo')
 

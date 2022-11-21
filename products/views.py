@@ -52,7 +52,7 @@ def products(request):
 
 @login_required
 def manage_product(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(Status = False)
     manage = Manage_Menu.objects.last()
     context = {
         'products' : products,
@@ -101,7 +101,8 @@ def edit_product(request,pid):
 def remove_product(request,pid):
     product = Product.objects.get(id=pid)
 
-    product.delete()
+    product.Status = True
+    product.save()
     messages.success(request,'product deleted successfully')
     return redirect('manage_product')
 

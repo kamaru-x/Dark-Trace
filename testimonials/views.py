@@ -29,7 +29,7 @@ def add_testimonial(request):
 @login_required
 def manage_testimonial(request):
     manage = Manage_Menu.objects.last()
-    testimonials = Testimonial.objects.all()
+    testimonials = Testimonial.objects.filter(Status = False)
     context = {
         'testimonials' : testimonials,
         'manage' : manage,
@@ -66,7 +66,8 @@ def edit_testimonial(request,tid):
 def remove_testimonial(request,tid):
     testimonial = Testimonial.objects.get(id=tid)
 
-    testimonial.delete()
+    testimonial.Status = True
+    testimonial.save()
     messages.success(request,'testimonial deleted')
     return redirect('manage_testimonial')
 

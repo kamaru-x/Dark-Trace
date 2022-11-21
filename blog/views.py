@@ -33,7 +33,7 @@ def blog(request):
 
 @login_required
 def manage_blog(request):
-    blogs = Blog.objects.all()
+    blogs = Blog.objects.filter(Status=False)
     manage = Manage_Menu.objects.last()
     return render(request,'manage_blog.html',{'blogs':blogs,'manage':manage})
 
@@ -70,7 +70,8 @@ def edit_blog(request,bid):
 def remove_blog(request,bid):
     blog = Blog.objects.get(id=bid)
 
-    blog.delete()
+    blog.Status = True
+    blog.save()
     messages.error(request,'blog deleted')
     return redirect('manage_blog')
 
