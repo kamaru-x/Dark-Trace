@@ -6,14 +6,14 @@ from django.core.paginator import Paginator
 def home_page(request):
     about = About.objects.last()
     contact = Contact.objects.last()
-    services = Service.objects.all()
-    products = Product.objects.all()
-    blogs = Blog.objects.all()
-    banners = Banners.objects.all()
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
+    blogs = Blog.objects.filter(Status=False)
+    banners = Banners.objects.filter(Status=False)
     bnr1 = Banners.objects.first()
     bnr2 = Banners.objects.last()
-    testimonials = Testimonial.objects.all()
-    gof = Group_Of_Companies.objects.all()
+    testimonials = Testimonial.objects.filter(Status=False)
+    gof = Group_Of_Companies.objects.filter(Status=False)
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     color = Theme.objects.last()
@@ -67,8 +67,8 @@ def header(request):
 #####################################################################
 
 def footer(request):
-    services = Service.objects.all()
-    products = Product.objects.all()
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -99,8 +99,8 @@ def footer(request):
 #####################################################################
 
 def about(request):
-    services = Service.objects.all()
-    products = Product.objects.all()
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     about = About.objects.last()
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
@@ -135,8 +135,8 @@ def about(request):
 #####################################################################
 
 def service_page(request):
-    products = Product.objects.all()
-    services = Service.objects.all()
+    products = Product.objects.filter(Status=False)
+    services = Service.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -169,10 +169,10 @@ def service_page(request):
 #####################################################################
 
 def service_details(request,url):
-    services = Service.objects.all()
-    products = Product.objects.all()
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     service = Service.objects.get(Url=url)
-    ser3 = Service.objects.all().order_by('-id')[:3]
+    ser3 = Service.objects.filter(Status=False).order_by('-id')[:3]
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -223,14 +223,14 @@ def service_details(request,url):
 #####################################################################
 
 def product_page(request):
-    products = Product.objects.all()
-    services = Service.objects.all()
+    products = Product.objects.filter(Status=False)
+    services = Service.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     color = Theme.objects.last()
 
-    p = Paginator(Product.objects.all(),6)
+    p = Paginator(Product.objects.filter(Status=False),6)
     page = request.GET.get('page')
     product = p.get_page(page)
 
@@ -262,10 +262,10 @@ def product_page(request):
 #####################################################################
 
 def product_details(request,url):
-    products = Product.objects.all()
+    products = Product.objects.filter(Status=False)
     product = Product.objects.get(Url=url)
-    pro3 = Product.objects.all().order_by('-id')[:3]
-    services = Service.objects.all()
+    pro3 = Product.objects.filter(Status=False).order_by('-id')[:3]
+    services = Service.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -316,17 +316,17 @@ def product_details(request,url):
 #####################################################################
 
 def blogs_page(request):
-    blogs = Blog.objects.all()
-    blog3 = Blog.objects.all().order_by('id')[:3]
-    services = Service.objects.all()
-    products = Product.objects.all()
+    blogs = Blog.objects.filter(Status=False)
+    blog3 = Blog.objects.filter(Status=False).order_by('id')[:3]
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     color = Theme.objects.last()
     
 
-    p = Paginator(Blog.objects.all(),4)
+    p = Paginator(Blog.objects.filter(Status=False),4)
     page = request.GET.get('page')
     blog = p.get_page(page)
 
@@ -361,9 +361,9 @@ def blogs_page(request):
 
 def blog_detailed(request,url):
     blog = Blog.objects.get(Url=url)
-    blog3 = Blog.objects.all().order_by('id')[:3]
-    services = Service.objects.all()
-    products = Product.objects.all()
+    blog3 = Blog.objects.filter(Status=False).order_by('id')[:3]
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -398,9 +398,9 @@ def blog_detailed(request,url):
 #####################################################################
 
 def gallery_page(request):
-    albums = Album.objects.all()
-    services = Service.objects.all()
-    products = Product.objects.all()
+    albums = Album.objects.filter(Status=False)
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -435,8 +435,8 @@ def gallery_page(request):
 
 def album_page(request,id):
     images = Album_Image.objects.filter(Album_Name=id)
-    services = Service.objects.all()
-    products = Product.objects.all()
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -471,8 +471,8 @@ def album_page(request,id):
 
 def contact_page(request):
     contact = Contact.objects.last()
-    services = Service.objects.all()
-    products = Product.objects.all()
+    services = Service.objects.filter(Status=False)
+    products = Product.objects.filter(Status=False)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
