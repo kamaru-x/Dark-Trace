@@ -18,8 +18,16 @@ def create_album(request):
         smtitle = request.POST.get('smtitle')
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
+
+        user = request.user
         
-        Data = Album(Title=title,Thumbnail=image,Url=url,SMTitle=smtitle,
+        x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forw_for is not None:
+            ip = x_forw_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        
+        Data = Album(AddedBy=user,Ip=ip,Title=title,Thumbnail=image,Url=url,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'album created successfully...!')
@@ -50,6 +58,14 @@ def upload_image(request):
     manage = Manage_Menu.objects.last()
     albums = Album.objects.all()
 
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST':
         select = request.POST.get('select')
         image = request.FILES.getlist('image')
@@ -61,7 +77,7 @@ def upload_image(request):
         album.save()
 
         for img in image: 
-            Data = Album_Image(Album_Name=album,Image=img,)
+            Data = Album_Image(AddedBy=user,Ip=ip,Album_Name=album,Image=img,)
             Data.save()
         messages.success(request,'image uploaded successfully ...!')
         return redirect('upload_image')
@@ -75,7 +91,7 @@ def upload_image(request):
 
 @login_required
 def manage_album(request):
-    albums = Album.objects.filter(Status=False)
+    albums = Album.objects.filter(Status=1)
     manage = Manage_Menu.objects.last()
     context = {
         'albums' : albums,
@@ -90,12 +106,23 @@ def edit_album(request,aid):
     album = Album.objects.get(id=aid)
     images = Album_Image.objects.filter(Album_Name=aid)
     manage = Manage_Menu.objects.last()
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST' :
         if len(request.FILES) != 0:
         #         if len(album.Image) > 0:
         #             os.remove(album.Image.path)
             album.Thumbnail = request.FILES['image']
         album.Title = request.POST.get('name')
+        album.AddedBy = user
+        album.Ip = ip
         album.save()
         messages.success(request,'album details edited successfully')
         return redirect('edit_album/%s' %album.id)
@@ -111,7 +138,7 @@ def edit_album(request,aid):
 @login_required
 def remove(request,aid):
     album = Album.objects.get(id=aid)
-    album.Status = True
+    album.Status = 0
     album.save()
     messages.success(request,'album deleted successfully')
     return redirect('manage_album')
@@ -122,7 +149,7 @@ def remove(request,aid):
 def remove_image(request,aid,iid):
     album = Album.objects.get(id=aid) 
     image = Album_Image.objects.get(id=iid)
-    image.Status = True
+    image.Status = 0
     image.save()
     messages.success(request,'image deleted successfully')
     return redirect('/admin/edit_album/%s' %album.id)

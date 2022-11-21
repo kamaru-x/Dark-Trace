@@ -1,27 +1,33 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from PIL import Image as IMG
+from django.contrib.auth.models import User
 # Create your models here.
 
 ########################################################################
 
-class User(models.Model):
-    Username = models.CharField(max_length=25)
-    Password = models.CharField(max_length=25)
+# class User(models.Model):
+#     Username = models.CharField(max_length=25)
+#     Password = models.CharField(max_length=25)
 
-    def __str__(self):
-        return self.Username
+#     def __str__(self):
+#         return self.Username
 
 ########################################################################
 
 class Feedback(models.Model):
-    Date = models.DateField(auto_now_add=True)
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete = models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # Additional
     Name = models.CharField(max_length=100)
     Email = models.EmailField()
     Contact = models.CharField(max_length=15)
     Website = models.CharField(max_length=50)
     Message = models.TextField()
-    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -32,13 +38,21 @@ class Feedback(models.Model):
 ########################################################################
 
 class About(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Title = models.CharField(max_length=50)
-    #Description = models.TextField()
     Mission = models.TextField()
     Vision = models.TextField(null=True,blank=True)
     Description = RichTextField(null=True,blank=True)
     Image = models.ImageField(blank=True,null=True,upload_to='about_us')
     Url = models.CharField(max_length=20000,null=True,unique=True)
+
+    #seo
     SMTitle = models.CharField(max_length=2000,blank=True,null=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
@@ -49,12 +63,19 @@ class About(models.Model):
 ########################################################################
 
 class Blog(models.Model):
-    Date = models.DateField(auto_now_add=True,null=True)
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Title = models.CharField(max_length=50)
     Description = models.TextField()
     Image = models.ImageField(blank=True,null=True,upload_to='blog')
     Url = models.CharField(max_length=20000,unique=True)
-    Status = models.BooleanField(default=False)
+    
+    # seo
     SMTitle = models.CharField(max_length=2000,blank=True,null=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
@@ -65,6 +86,7 @@ class Blog(models.Model):
     def __str__(self):
         return self.Title
 
+    # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
@@ -77,14 +99,22 @@ class Blog(models.Model):
 ########################################################################
 
 class Album(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Title = models.CharField(max_length=50)
     Thumbnail = models.ImageField(blank=True,null=True,upload_to='album')
     Images = models.IntegerField(default=0,)
     Url = models.CharField(max_length=20000,null=True,unique=True)
+
+    # seo
     SMTitle = models.CharField(max_length=2000,blank=True,null=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000,blank=True,null=True)
-    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -92,6 +122,8 @@ class Album(models.Model):
     def __str__(self):
         return self.Title
 
+
+    # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Thumbnail.path)
@@ -108,9 +140,14 @@ class Album(models.Model):
 ########################################################################
 
 class Album_Image(models.Model):
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Album_Name = models.ForeignKey(Album, on_delete=models.CASCADE)
     Image = models.ImageField(blank=True,null=True,upload_to='album-image')
-    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -118,6 +155,7 @@ class Album_Image(models.Model):
     def __str__(self):
         return self.Album_Name.Title
 
+    # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
@@ -134,6 +172,13 @@ class Album_Image(models.Model):
 ########################################################################
 
 class Contact(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Company_Name = models.CharField(max_length=50,null=True)
     Adress = models.TextField(null=True)
     Telephone = models.CharField(max_length=15,null=True)
@@ -149,6 +194,8 @@ class Contact(models.Model):
     Twitter = models.CharField(max_length=50,null=True)
     Image = models.ImageField(blank=True,null=True,upload_to='Company')
     Url = models.CharField(max_length=20000,null=True,unique=True)
+
+    # seo
     SMTitle = models.CharField(max_length=2000,null=True)
     SMDescription = models.TextField(null=True)
     SMKeywords = models.CharField(max_length=2000,null=True)
@@ -159,6 +206,13 @@ class Contact(models.Model):
 ########################################################################
 
 class Product(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Title = models.CharField(max_length=50, null=True, default=None, blank=True)
     Description = models.TextField()
     Image = models.ImageField(blank=True,null=True,upload_to='Product')
@@ -171,7 +225,8 @@ class Product(models.Model):
     Show_Enquiry = models.BooleanField(default=False, null=True, blank=True)
     Show_Feature = models.BooleanField(default=False, null=True, blank=True)
     Url = models.CharField(max_length=20000,unique=True ,null=True,)
-    Status = models.BooleanField(default=False)
+    
+    # seo
     SMTitle = models.CharField(max_length=2000, null=True, default=None, blank=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000, null=True, default=None, blank=True)
@@ -179,6 +234,7 @@ class Product(models.Model):
     def __str__(self):
         return self.Title
 
+    # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
@@ -195,6 +251,13 @@ class Product(models.Model):
 ########################################################################
 
 class Service(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Title = models.CharField(max_length=50, null=True, default=None, blank=True)
     Description = models.TextField()
     Image = models.ImageField(blank=True,null=True,upload_to='Product')
@@ -207,7 +270,8 @@ class Service(models.Model):
     Show_Enquiry = models.BooleanField(default=False, null=True, blank=True)
     Show_Feature = models.BooleanField(default=False, null=True, blank=True)
     Url = models.CharField(max_length=20000,null=True,unique=True)
-    Status = models.BooleanField(default=False)
+    
+    # seo
     SMTitle = models.CharField(max_length=2000, null=True, default=None, blank=True)
     SMDescription = models.TextField(blank=True,null=True)
     SMKeywords = models.CharField(max_length=2000, null=True, default=None, blank=True)
@@ -215,6 +279,7 @@ class Service(models.Model):
     def __str__(self):
         return self.Title
 
+    # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Image.path)
@@ -231,7 +296,13 @@ class Service(models.Model):
 ########################################################################
 
 class Enquiry(models.Model):
-    Date = models.DateField(auto_now_add=True)
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Name = models.CharField(max_length=50)
     Mobile_Number = models.CharField(max_length=15,null=True, default=None, blank=True)
     Email = models.EmailField(null=True, default=None, blank=True)
@@ -240,7 +311,6 @@ class Enquiry(models.Model):
     District = models.CharField(max_length=25,null=True)
     Address = models.TextField()
     Refer_number = models.CharField(max_length=6,null=True, default=None, blank=True)
-    Status = models.BooleanField(default=False)
 
     class Meta:
         ordering =('-id',)
@@ -251,6 +321,13 @@ class Enquiry(models.Model):
 ########################################################################
 
 class Manage_Menu(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     About_Page = models.BooleanField(default=False, null=True, blank=True)
     Blog_Page = models.BooleanField(default=False, null=True, blank=True)
     Image_Gallery = models.BooleanField(default=False, null=True, blank=True)
@@ -265,6 +342,13 @@ class Manage_Menu(models.Model):
 ########################################################################
 
 class Quick_Links(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     About_Page = models.BooleanField(default=False, null=True, blank=True)
     Blog_Page = models.BooleanField(default=False, null=True, blank=True)
     Image_Gallery = models.BooleanField(default=False, null=True, blank=True)
@@ -278,9 +362,16 @@ class Quick_Links(models.Model):
 ########################################################################
 
 class Group_Of_Companies(models.Model):
-    Logo = models.ImageField(blank=True,null=True,upload_to='CompanyLogo')
-    Status = models.BooleanField(default=False)
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
 
+    # additional
+    Logo = models.ImageField(blank=True,null=True,upload_to='CompanyLogo')
+
+    # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Logo.path)
@@ -297,16 +388,23 @@ class Group_Of_Companies(models.Model):
 ########################################################################
 
 class Testimonial(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Tes_Name = models.CharField(max_length=50)
     Designation = models.CharField(max_length=50)
     Company_Name = models.CharField(max_length=50)
     Testimonial = models.TextField()
     Tes_Image = models.ImageField(blank=True,null=True,upload_to='TestimonialImage')
-    Status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.Tes_Name
 
+    # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Tes_Image.path)
@@ -323,16 +421,23 @@ class Testimonial(models.Model):
 ########################################################################
 
 class Banners(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Caption = models.CharField(max_length=100)
     Sub_Caption = models.CharField(max_length=100)
     Button_Label = models.CharField(max_length=30)
     Link = models.CharField(max_length=1000)
     Banner_Image = models.ImageField(blank=True,null=True,upload_to='BannerImage')
-    Status = models.BooleanField(default=False)
 
     def __str__(self):
         return self.Caption
 
+    # image resize functions
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
         img = IMG.open(self.Banner_Image.path)
@@ -349,5 +454,12 @@ class Banners(models.Model):
 ########################################################################
 
 class Theme(models.Model):
+    # default
+    Date = models.DateTimeField(auto_now_add=True , null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.ForeignKey(User, on_delete=models.CASCADE , default=1)
+    Ip = models.GenericIPAddressField(null=True)
+
+    # additional
     Primary = models.CharField(max_length=10,null=True,blank=True)
     Secondary = models.CharField(max_length=10,null=True,blank=True)

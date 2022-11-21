@@ -1,8 +1,7 @@
 from django.contrib import admin
-from home.models import User,Feedback,About,Blog,Album,Album_Image,Contact,Product,Service,Enquiry,Manage_Menu,Quick_Links,Group_Of_Companies,Testimonial,Banners,Theme
+from home.models import Feedback,About,Blog,Album,Album_Image,Contact,Product,Service,Enquiry,Manage_Menu,Quick_Links,Group_Of_Companies,Testimonial,Banners,Theme
 # Register your models here.
 
-admin.site.register(User)
 admin.site.register(Feedback)
 admin.site.register(About)
 admin.site.register(Blog)

@@ -31,7 +31,15 @@ def services(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
-        Data = Service(Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
+        user = request.user
+        
+        x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forw_for is not None:
+            ip = x_forw_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+
+        Data = Service(AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
         Actual_Price=actual_price,Offer_Price=offer_price,Show_Whatsapp=whatsapp,Whatsapp_Number=number,
         Show_Enquiry=show_enquiry,Show_Feature=show_feature,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
@@ -49,7 +57,7 @@ def services(request):
 
 @login_required
 def manage_service(request):
-    services = Service.objects.filter(Status = False)
+    services = Service.objects.filter(Status = 1)
     manage = Manage_Menu.objects.last()
     context = {
         'services' : services,
@@ -64,11 +72,22 @@ def edit_service(request,sid):
     service = Service.objects.get(id=sid)
     contact = Contact.objects.last()
     manage = Manage_Menu.objects.last()
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    
     if request.method == 'POST':
         if len(request.FILES) != 0:
         #     if len(service.Image) > 0:
         #         os.remove(service.Image.path)
             service.Image = request.FILES['image']
+        service.AddedBy = user
+        service.Ip = ip
         service.Title = request.POST.get('title')
         service.Description = request.POST.get('description')
         service.Show_Price = request.POST.get('check1')
@@ -98,7 +117,7 @@ def edit_service(request,sid):
 def remove_service(request,sid):
     service = Service.objects.get(id=sid)
 
-    service.Status = True
+    service.Status = 0
     service.save()
     messages.success(request,'service deleted')
     return redirect('manage_service')

@@ -17,8 +17,16 @@ def blog(request):
         smtitle = request.POST.get('smtitle')
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
+
+        user = request.user
         
-        Data = Blog(Title=title,Description=description,Image=image,Url=url,SMTitle=smtitle,
+        x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forw_for is not None:
+            ip = x_forw_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        
+        Data = Blog(AddedBy=user,Ip=ip,Title=title,Description=description,Image=image,Url=url,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'new blog added successfully.....!')
@@ -33,7 +41,7 @@ def blog(request):
 
 @login_required
 def manage_blog(request):
-    blogs = Blog.objects.filter(Status=False)
+    blogs = Blog.objects.filter(Status=1)
     manage = Manage_Menu.objects.last()
     return render(request,'manage_blog.html',{'blogs':blogs,'manage':manage})
 
@@ -43,6 +51,15 @@ def manage_blog(request):
 def edit_blog(request,bid):
     manage = Manage_Menu.objects.last()
     blog = Blog.objects.get(id=bid)
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST':
         if len(request.FILES) != 0:
         #     if len(blog.Image) > 0:
@@ -55,6 +72,8 @@ def edit_blog(request,bid):
         blog.SMTitle = request.POST.get('smtitle')
         blog.SMDescription = request.POST.get('smdescription')
         blog.SMKeywords = request.POST.get('smkeywords')
+        blog.AddedBy = user
+        blog.Ip = ip
         blog.save()
         messages.success(request,'blog edited successfull...!')
         return redirect('.')
@@ -70,7 +89,7 @@ def edit_blog(request,bid):
 def remove_blog(request,bid):
     blog = Blog.objects.get(id=bid)
 
-    blog.Status = True
+    blog.Status = 0
     blog.save()
     messages.error(request,'blog deleted')
     return redirect('manage_blog')

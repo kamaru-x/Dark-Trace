@@ -15,7 +15,17 @@ def banner(request):
         link = request.POST.get('link')
         image = request.FILES['image']
 
-        data = Banners (Caption=caption,Sub_Caption=scaption,Button_Label=label,Link=link,Banner_Image=image)
+        user = request.user
+        
+        x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forw_for is not None:
+            ip = x_forw_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+
+        
+
+        data = Banners (AddedBy=user,Ip=ip,Caption=caption,Sub_Caption=scaption,Button_Label=label,Link=link,Banner_Image=image)
         data.save()
         messages.success(request,'banner added')
         return redirect('banner')
@@ -31,7 +41,7 @@ def banner(request):
 @login_required
 def manage_banner(request):
     manage = Manage_Menu.objects.last()
-    banners = Banners.objects.filter(Status=False)
+    banners = Banners.objects.filter(Status=1)
     context = {
         'banners' : banners,
         'manage' : manage
@@ -44,6 +54,15 @@ def manage_banner(request):
 def edit_banner(request,bid):
     manage = Manage_Menu.objects.last()
     banner = Banners.objects.get(id=bid)
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST':
         if len(request.FILES) != 0:
         #     if len(banner.Banner_Image) > 0:
@@ -53,6 +72,8 @@ def edit_banner(request,bid):
         banner.Sub_Caption = request.POST.get('scaption')
         banner.Button_Label = request.POST.get('label')
         banner.Link = request.POST.get('link')
+        banner.AddedBy = user
+        banner.Ip = ip
         banner.save()
         messages.success(request,'banner edited')
         return redirect('.')
@@ -68,7 +89,7 @@ def edit_banner(request,bid):
 def remove_banner(request,bid):
     banner = Banners.objects.get(id=bid)
 
-    banner.Status = True
+    banner.Status = 0
     banner.save()
     messages.success(request,'banner deleted')
     return redirect('manage_banner')

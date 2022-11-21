@@ -33,7 +33,15 @@ def products(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
-        Data = Product(Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
+        user = request.user
+        
+        x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forw_for is not None:
+            ip = x_forw_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+
+        Data = Product(AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
         Actual_Price=actual_price,Offer_Price=offer_price,Show_Whatsapp=whatsapp,Whatsapp_Number=number,
         Show_Enquiry=show_enquiry,Show_Feature=show_feature,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
@@ -52,7 +60,7 @@ def products(request):
 
 @login_required
 def manage_product(request):
-    products = Product.objects.filter(Status = False)
+    products = Product.objects.filter(Status = 1)
     manage = Manage_Menu.objects.last()
     context = {
         'products' : products,
@@ -67,11 +75,22 @@ def edit_product(request,pid):
     product = Product.objects.get(id=pid)
     contact = Contact.objects.last()
     manage = Manage_Menu.objects.last()
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST':
         if len(request.FILES) != 0:
         #     if len(product.Image) > 0:
         #         os.remove(product.Image.path)
             product.Image = request.FILES['image']
+        product.AddedBy = user
+        product.Ip = ip
         product.Title = request.POST.get('title')
         product.Description = request.POST.get('description')
         product.Show_Price = request.POST.get('check1')
@@ -101,7 +120,7 @@ def edit_product(request,pid):
 def remove_product(request,pid):
     product = Product.objects.get(id=pid)
 
-    product.Status = True
+    product.Status = 0
     product.save()
     messages.success(request,'product deleted successfully')
     return redirect('manage_product')

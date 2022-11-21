@@ -24,10 +24,9 @@ def index(request):
 ########################################################################
 
 def test_area(request):
-    blogs = Blog.objects.all()
-    enquiry = Enquiry.objects.all()
-    color = Theme.objects.last()
-    return render(request,'test-area.html',{'blogs':blogs,'enquiries':enquiry,'color':color})
+    user = request.user
+    print(user)
+    return render(request,'test-area.html')
 
 ########################################################################
 
@@ -101,12 +100,23 @@ def about_us(request):
 def contact_us(request):
     contact = Contact.objects.last()
     manage = Manage_Menu.objects.last()
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    
     if request.method == 'POST':
         if contact:
             if len(request.FILES) != 0:
         #         if len(contact.Image) > 0:
         #             os.remove(contact.Image.path)
                 contact.Image = request.FILES['image']
+            contact.AddedBy = user
+            contact.Ip = ip
             contact.Company_Name = request.POST.get('title')
             contact.Mobile = request.POST.get('mobile')
             contact.Telephone = request.POST.get('telephone')
@@ -147,7 +157,15 @@ def contact_us(request):
             smdescription = request.POST.get('smdescription')
             smkeywords = request.POST.get('smkeywords')
 
-            data = Contact(Company_Name=title,Adress=address,Telephone=telephone,
+            user = request.user
+        
+            x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forw_for is not None:
+                ip = x_forw_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+
+            data = Contact(AddedBy=user,Ip=ip,Company_Name=title,Adress=address,Telephone=telephone,
             Mobile=mobile,Whatsapp=whatsapp,Email=email,Website=website,Longitude=longitude,
             Latitude=latitude,Facebook=facebook,Instagram=instagram,Linkedin=linkedin,
             Twitter=twitter,Image=image,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
@@ -159,7 +177,7 @@ def contact_us(request):
 
 @login_required
 def feedback(request):
-    feedbacks = Feedback.objects.filter(Status = False)
+    feedbacks = Feedback.objects.filter(Status = 1)
     manage = Manage_Menu.objects.last()
     context = {
         'feedbacks' : feedbacks,
@@ -171,7 +189,7 @@ def feedback(request):
 
 @login_required
 def enquiry(request):
-    enquiries = Enquiry.objects.filter(Status = False)
+    enquiries = Enquiry.objects.filter(Status = 1)
     manage = Manage_Menu.objects.last()
     context = {
         'enquiries' : enquiries,
@@ -194,6 +212,15 @@ def view_enquiry(request,eid):
 @login_required
 def manage_menu(request):
     manage = Manage_Menu.objects.last()
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST':
         if manage:
             manage.About_Page = request.POST.get('about')
@@ -206,6 +233,8 @@ def manage_menu(request):
             manage.Feedback_Page = request.POST.get('feedback')
             manage.Enquiry_Page = request.POST.get('enquiry')
             manage.Group_Company = request.POST.get('gop')
+            manage.AddedBy = user
+            manage.Ip = ip
             manage.save()
             
             messages.success(request,'manage manu edited successfully ...!')
@@ -221,8 +250,16 @@ def manage_menu(request):
             feedback = request.POST.get('feedback')
             enquiry = request.POST.get('enquiry')
             gop = request.POST.get('gop')
+
+            user = request.user
+        
+            x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forw_for is not None:
+                ip = x_forw_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
             
-            data = Manage_Menu(About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
+            data = Manage_Menu(AddedBy=user,Ip=ip,About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
             Products_Page=products,Service_Page=services,Testimonials=testimonials,Feedback_Page=feedback,
             Enquiry_Page=enquiry,Group_Company=gop)
             data.save()
@@ -240,6 +277,15 @@ def manage_menu(request):
 def quick_links(request):
     quick = Quick_Links.objects.last()
     manage = Manage_Menu.objects.last()
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    
     if request.method == 'POST':
         if quick :
             quick.About_Page = request.POST.get('about')
@@ -251,6 +297,8 @@ def quick_links(request):
             quick.Testimonials = request.POST.get('testimonials')
             quick.Optional_Products = request.POST.get('op-products')
             quick.Optional_Service = request.POST.get('op-services')
+            quick.AddedBy = user
+            quick.Ip = ip
             quick.save()
             messages.success(request,'quick links edited successfully ...!')
             return redirect('quick_links')
@@ -264,7 +312,16 @@ def quick_links(request):
             testimonials = request.POST.get('testimonials')
             op_products = request.POST.get('op-products')
             op_services = request.POST.get('op-services')
-            data = Quick_Links(About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
+
+            user = request.user
+        
+            x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forw_for is not None:
+                ip = x_forw_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+
+            data = Quick_Links(AddedBy=user,Ip=ip,About_Page=about,Blog_Page=blog,Image_Gallery=gallery,Contact_Page=contact,
             Products_Page=products,Service_Page=services,Testimonials=testimonials,Optional_Products=op_products,Optional_Service=op_services)
             data.save()
             messages.success(request,'quick links edited successfully ...!')
@@ -291,7 +348,7 @@ def remove_abt_img(request,aid):
 @login_required
 def remove_feedback(request,fid):
     feedback = Feedback.objects.get(id=fid)
-    feedback.Status = True
+    feedback.Status = 0
     feedback.save()
     return redirect('feedback')
 
@@ -300,7 +357,7 @@ def remove_feedback(request,fid):
 @login_required
 def remove_enquiry(request,eid):
     enquiry = Enquiry.objects.get(id=eid)
-    enquiry.Status = True
+    enquiry.Status = 0
     enquiry.save()
     return redirect('enquiry')
 
@@ -336,9 +393,20 @@ def signout(request):
 def change_color(request):
     color = Theme.objects.last()
     manage = Manage_Menu.objects.last()
+
+    user = request.user
+        
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        ip = x_forw_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST' :
         color.Primary = request.POST.get('primary')
         color.Secondary = request.POST.get('secondary')
+        color.AddedBy = user
+        color.Ip = ip
         color.save()
         return redirect('/admin/theme')
     context ={
