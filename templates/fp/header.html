@@ -76,10 +76,18 @@
                                 <div class="col-lg-4 text-right">
                                     <div class="toolbar-sl-share">
                                         <ul class="social">
-                                            <li><a href="https://www.facebook.com/{{contact.Facebook}}"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="https://www.twitter.com/{{contact.Twitter}}"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="https://www.instagram.com/{{contact.Instagram}}"><i class="fa fa-instagram"></i></a></li>
-                                            <li><a href="https://www.linkedin.com/{{contact.Linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                                            {% if contact.Facebook %}
+                                                <li><a href="https://www.facebook.com/{{contact.Facebook}}"><i class="fa fa-facebook"></i></a></li>
+                                            {% endif %}
+                                            {% if contact.Twitter %}
+                                                <li><a href="https://www.twitter.com/{{contact.Twitter}}"><i class="fa fa-twitter"></i></a></li>
+                                            {% endif %}
+                                            {% if contact.Instagram %}
+                                                <li><a href="https://www.instagram.com/{{contact.Instagram}}"><i class="fa fa-instagram"></i></a></li>
+                                            {% endif %}
+                                            {% if contact.Linkedin %}
+                                                <li><a href="https://www.linkedin.com/{{contact.Linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                                            {% endif %}
                                         </ul>
                                     </div>
                                 </div>
@@ -95,8 +103,8 @@
                                 <div class="col-cell header-logo">                                  
                                     <div class="logo-area">
                                         <a href="{% url 'home-page' %}">
-                                            <img class="normal-logo" src="{% static 'fp/assets/images/logo-orange-white.png' %}" alt="logo">  
-                                            <img class="sticky-logo" src="{% static 'fp/assets/images/logo-dark.png' %}" alt="logo">
+                                            <img class="normal-logo" src="{{contact.Image.url}}" alt="logo">  
+                                            <img class="sticky-logo" src="{{contact.Image.url}}" alt="logo">
                                         </a>
                                     </div>
                                 </div>
@@ -227,10 +235,18 @@
                                 </div>
                             </div>
                             <ul class="social">
-                                <li><a href="https://www.facebook.com/{{contact.Facebook}}"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="https://www.twitter.com/{{contact.Twitter}}"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://www.instagram.com/{{contact.Instagram}}"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="https://www.linkedin.com/{{contact.Linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                                {% if contact.Facebook %}
+                                    <li><a href="https://www.facebook.com/{{contact.Facebook}}"><i class="fa fa-facebook"></i></a></li>
+                                {% endif %}
+                                {% if contact.Twitter %}
+                                    <li><a href="https://www.twitter.com/{{contact.Twitter}}"><i class="fa fa-twitter"></i></a></li>
+                                {% endif %}
+                                {% if contact.Instagram %}
+                                    <li><a href="https://www.instagram.com/{{contact.Instagram}}"><i class="fa fa-instagram"></i></a></li>
+                                {% endif %}
+                                {% if contact.Linkedin %}
+                                    <li><a href="https://www.linkedin.com/{{contact.Linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </nav>

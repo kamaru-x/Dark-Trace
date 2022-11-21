@@ -109,8 +109,15 @@ def manage_album(request):
 @login_required
 def edit_album(request,aid):
     album = Album.objects.get(id=aid)
-    images = Album_Image.objects.filter(Album_Name=aid)
+    images_list = Album_Image.objects.filter(Album_Name=aid)
     manage = Manage_Menu.objects.last()
+
+    images = []
+
+    for img in images_list:
+        if img.Status == 1 :
+            images.append(img)
+
 
     user = request.user.id
         
@@ -131,7 +138,7 @@ def edit_album(request,aid):
         album.Edited_Date = datetime.now()
         album.save()
         messages.success(request,'album details edited successfully')
-        return redirect('edit_album/%s' %album.id)
+        return redirect('/admin/edit_album/%s' %album.id)
     context = {
         'album' : album,
         'images' : images,

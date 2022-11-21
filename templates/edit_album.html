@@ -36,9 +36,14 @@
                     <label class="form-label">Album Name</label>
                     <input type="text" name="name" value="{{album.Title}}" class="form-control" />
                 </div>
-                <div class="form-outline mb-4 col-md-6">
+                <div class="form-outline mb-4 col-md-5">
                   <label class="form-label">Album Thumbnail</label>
                   <input multiple type="file" name="image" class="form-control" />
+              </div>
+              <div class="media align-items-center col-md-1">
+                <a href="" class="">
+                  <img width="75px" height="75px" alt="" src="{{album.Thumbnail.url}}">
+                </a>
               </div>
           </div>
           
@@ -59,9 +64,9 @@
             <div class="card">
                 <img src="{{image.Image.url}}" class="card-img-top" alt="Fissure in Sandstone"/>
                 <div class="card-body text-center">
-                  <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
+                  <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter-{{forloop.counter}}">Delete</button>
                 </div>
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="exampleModalCenter-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-header">

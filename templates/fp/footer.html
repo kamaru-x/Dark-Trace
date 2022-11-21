@@ -8,22 +8,20 @@
                                 <a href="index.php"><img src="{% static 'fp/assets/images/logo.png' %}" alt=""></a>
                             </div>
                               
-                              <ul class="footer-social md-mb-30">  
-                                  <li> 
-                                      <a href="https://www.facebook.com/{{contact.Facebook}}" target="_blank"><span><i class="fa fa-facebook"></i></span></a> 
-                                  </li>
-                                  <li> 
-                                      <a href="https://www.twitter.com/{{contact.Twitter}}" target="_blank"><span><i class="fa fa-twitter"></i></span></a> 
-                                  </li>
-
-                                  <li> 
-                                      <a href="https://www.linkedin.com/{{contact.Linkedin}}" target="_blank"><span><i class="fa fa-linkedin"></i></span></a> 
-                                  </li>
-                                  <li> 
-                                      <a href="https://www.instagram.com/{{contact.Instagram}}" target="_blank"><span><i class="fa fa-instagram"></i></span></a> 
-                                  </li>
-                                                                           
-                              </ul>
+                            <ul class="footer-social">
+                                {% if contact.Facebook %}
+                                    <li><a href="https://www.facebook.com/{{contact.Facebook}}"><i class="fa fa-facebook"></i></a></li>
+                                {% endif %}
+                                {% if contact.Twitter %}
+                                    <li><a href="https://www.twitter.com/{{contact.Twitter}}"><i class="fa fa-twitter"></i></a></li>
+                                {% endif %}
+                                {% if contact.Instagram %}
+                                    <li><a href="https://www.instagram.com/{{contact.Instagram}}"><i class="fa fa-instagram"></i></a></li>
+                                {% endif %}
+                                {% if contact.Linkedin %}
+                                    <li><a href="https://www.linkedin.com/{{contact.Linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                                {% endif %}
+                            </ul>
                         </div>
                         <div class="col-lg-2 col-md-12 col-sm-12 md-mb-10 pl-55 md-pl-15">
                             <h3 class="footer-title">Quick Links</h3>
