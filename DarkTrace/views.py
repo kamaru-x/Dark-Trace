@@ -439,13 +439,19 @@ def gallery_page(request):
 #####################################################################
 
 def album_page(request,id):
-    images = Album_Image.objects.filter(Album_Name=id)
+    images_list = Album_Image.objects.filter(Album_Name=id)
     services = Service.objects.filter(Status=1)
     products = Product.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
     color = Theme.objects.last()
+
+    images = []
+
+    for img in images_list:
+        if img.Status == 1:
+            images.append(img)
 
     fs = []
 
