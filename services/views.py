@@ -36,7 +36,8 @@ def services(request):
 
         for u in urls :
             if u.Url == url:
-                url2 = url+'xyz'
+                messages.error(request,'service already exist with same name and url')
+                return redirect('services')
             else:
                 pass
 
@@ -115,6 +116,14 @@ def edit_service(request,sid):
         service.SMTitle = request.POST.get('smtitle')
         service.SMDescription = request.POST.get('smdescription')
         service.SMKeywords = request.POST.get('smkeywords')
+        urls = Service.objects.all()
+
+        for u in urls :
+            if u.Url == Service.Url:
+                messages.error(request,'service already exist with same name and url')
+                return redirect('services')
+            else:
+                pass
         service.save()
         messages.success(request,'service details edited successfully ...!')
         return redirect('.')

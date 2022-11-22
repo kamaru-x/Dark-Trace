@@ -23,7 +23,8 @@ def blog(request):
 
         for u in urls :
             if u.Url == url:
-                url2 = url+'xyz'
+                messages.error(request,'blog already exist with same name and url')
+                return redirect('blog')
             else:
                 pass
 
@@ -37,7 +38,7 @@ def blog(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
         
-        Data = Blog(Date=date,AddedBy=user,Ip=ip,Title=title,Description=description,Image=image,Url=url2,SMTitle=smtitle,
+        Data = Blog(Date=date,AddedBy=user,Ip=ip,Title=title,Description=description,Image=image,Url=url,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'new blog added successfully.....!')
@@ -86,6 +87,16 @@ def edit_blog(request,bid):
         blog.EditedBy = user
         blog.EditedIp = ip
         blog.Edited_Date = datetime.now()
+
+        urls = Blog.objects.all()
+
+        for u in urls :
+            if u.Url == blog.Url:
+                messages.error(request,'blog already exist with same name and url')
+                return redirect('blog')
+            else:
+                pass
+
         blog.save()
         messages.success(request,'blog edited successfull...!')
         return redirect('.')

@@ -24,7 +24,8 @@ def create_album(request):
 
         for u in urls :
             if u.Url == url:
-                url2 = url+'xyz'
+                messages.error(request,'album already exist with same name and url')
+                return redirect('create_album')
             else:
                 pass
 
@@ -38,7 +39,7 @@ def create_album(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
         
-        Data = Album(Date=date,AddedBy=user,Ip=ip,Title=title,Thumbnail=image,Url=url2,SMTitle=smtitle,
+        Data = Album(Date=date,AddedBy=user,Ip=ip,Title=title,Thumbnail=image,Url=url,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'album created successfully...!')
@@ -84,13 +85,9 @@ def upload_image(request):
         image = request.FILES.getlist('image')
 
         album = Album.objects.get(id=select)
-        image_count = Album_Image.objects.filter(Album_Name=album).count()
-        images = []
-        for img in images:
-            if img.Status == 1:
-                images.append(img)
+        image_count = Album_Image.objects.filter(Album_Name=album).filter(Status=1).count()
 
-        album.Images = images + len(image)
+        album.Images = image_count + len(image)
         album.save()
 
         for img in image: 
