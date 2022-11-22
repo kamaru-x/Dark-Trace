@@ -19,6 +19,14 @@ def blog(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
+        urls = Blog.objects.all()
+
+        for u in urls :
+            if u.Url == url:
+                url2 = url+'xyz'
+            else:
+                pass
+
         user = request.user.id
 
         date = datetime.now()
@@ -29,7 +37,7 @@ def blog(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
         
-        Data = Blog(Date=date,AddedBy=user,Ip=ip,Title=title,Description=description,Image=image,Url=url,SMTitle=smtitle,
+        Data = Blog(Date=date,AddedBy=user,Ip=ip,Title=title,Description=description,Image=image,Url=url2,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'new blog added successfully.....!')

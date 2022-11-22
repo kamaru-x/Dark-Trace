@@ -20,6 +20,14 @@ def create_album(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
+        urls = Album.objects.all()
+
+        for u in urls :
+            if u.Url == url:
+                url2 = url+'xyz'
+            else:
+                pass
+
         user = request.user.id
 
         date = datetime.now()
@@ -30,7 +38,7 @@ def create_album(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
         
-        Data = Album(Date=date,AddedBy=user,Ip=ip,Title=title,Thumbnail=image,Url=url,SMTitle=smtitle,
+        Data = Album(Date=date,AddedBy=user,Ip=ip,Title=title,Thumbnail=image,Url=url2,SMTitle=smtitle,
         SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'album created successfully...!')
