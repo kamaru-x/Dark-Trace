@@ -32,7 +32,7 @@ def services(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
-        discount = ((actual_price / offer_price) / actual_price) * 100
+        discount = int(actual_price - offer_price) / int(actual_price) * 100
 
         user = request.user.id
 

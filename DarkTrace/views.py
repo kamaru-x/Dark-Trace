@@ -173,7 +173,7 @@ def service_details(request,url):
     services = Service.objects.filter(Status=1)
     products = Product.objects.filter(Status=1)
     service = Service.objects.get(Url=url)
-    ser3 = Service.objects.filter(Status=1).order_by('-id')[:3]
+    ser3 = Service.objects.exclude(Url=url,Status=0).order_by('-id')[:3]
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
     quick = Quick_Links.objects.last()
@@ -267,7 +267,7 @@ def product_page(request):
 def product_details(request,url):
     products = Product.objects.filter(Status=1)
     product = Product.objects.get(Url=url)
-    pro3 = Product.objects.filter(Status=1).order_by('-id')[:3]
+    pro3 = Product.objects.exclude(Url=url,Status=0).order_by('-id')[:3]
     services = Service.objects.filter(Status=1)
     contact = Contact.objects.last()
     menu = Manage_Menu.objects.last()
