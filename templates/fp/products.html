@@ -78,7 +78,7 @@
                                 <div class="overley">
                                     <a href="{% url 'product-details' product.Url %}"><i class="flaticon-shopping-bag"></i></a>
                                 </div>
-                                 <!-- <span class="megasale">80%</span> -->
+                                <span class="megasale">{{product.Discount}}%</span>
                             </div>
                             {% endif %}
                             <div class="content-desc text-center">

@@ -62,8 +62,7 @@
                                 <div class="recent-post-widget">
                                     {% if b.Image %}
                                     <div class="post-img">
-                                        <a href="{% url 'blog-detailed' b.Url %}"><img src="{{b.Image.url}}"
-                                                alt=""></a>
+                                        <a href="{% url 'blog-detailed' b.Url %}"><img src="{{b.Image.url}}" alt=""></a>
                                     </div>
                                     {% endif %}
                                     <div class="post-desc">

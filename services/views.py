@@ -32,6 +32,8 @@ def services(request):
         smkeywords = request.POST.get('smkeywords')
         smdescription = request.POST.get('smdescription')
 
+        discount = ((actual_price / offer_price) / actual_price) * 100
+
         user = request.user.id
 
         date = datetime.now()
@@ -43,7 +45,7 @@ def services(request):
             ip = request.META.get('REMOTE_ADDR')
 
         Data = Service(Date=date,AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
-        Actual_Price=actual_price,Offer_Price=offer_price,Show_Whatsapp=whatsapp,Whatsapp_Number=number,
+        Actual_Price=actual_price,Offer_Price=offer_price,Discount=discount,Show_Whatsapp=whatsapp,Whatsapp_Number=number,
         Show_Enquiry=show_enquiry,Show_Feature=show_feature,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'new services added successfully')

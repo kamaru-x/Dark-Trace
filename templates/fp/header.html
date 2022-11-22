@@ -64,7 +64,7 @@
                                            </li>
                                            <li>
                                                <i class="flaticon-call"></i>
-                                               <a href="tel:(+1)9999999999">{{contact.Telephone}}</a>
+                                               <a href="tel:(+1)9999999999">{{contact.Mobile}}</a>
                                            </li>
                                            <li>
                                                <i class="flaticon-location"></i>
@@ -196,7 +196,7 @@
                             </a>
                         </div>
                         <div class="canvas-logo">
-                            <a href="{% url 'home-page' %}"><img src="{% static 'fp/assets/images/logo.png' %}" alt="logo"></a>
+                            <a href="{% url 'home-page' %}"><img src="{{contact.Image.url}}" alt="logo"></a>
                         </div>
                         <div class="offcanvas-text">
                             <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus.</p>
@@ -325,7 +325,7 @@
     <a href="https://wa.me/+91{{contact.Whatsapp}}"><img src="{% static 'fp/assets/images/whatsappicon.png' %}"></a></div>
   </div>
    <div class="phone">
-    <a href="tel:{{contact.Telephone}}"><img src="{% static 'fp/assets/images/phone-call.png' %}"></a></div>
+    <a href="tel:{{contact.Mobile}}"><img src="{% static 'fp/assets/images/phone-call.png' %}"></a></div>
                 </header>
                 <!--Header End-->
             </div>

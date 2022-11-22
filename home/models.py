@@ -99,11 +99,14 @@ class Blog(models.Model):
     #     super().save(*args,**kwargs)
     #     img = IMG.open(self.Image.path)
 
-    #     if img:
-    #         if img.height > 600 or img.width > 600:
-    #             output_size = (600,600)
-    #             img.thumbnail(output_size)
-    #             img.save(self.Image.path)
+    #     if img.height > 600 or img.width > 600:
+    #         output_size = (600,600)
+    #         img.thumbnail(output_size)
+    #         img.save(self.Image.path)
+    #     elif img.height < 600 or img.width < 600:
+    #         output_size = (600,600)
+    #         img.thumbnail(output_size)
+    #         img.save(self.Image.path)
 
 ########################################################################
 
@@ -245,6 +248,7 @@ class Product(models.Model):
     Show_Price = models.BooleanField(default=False, null=True, blank=True)
     Actual_Price = models.CharField(max_length=15, null=True, default=None, blank=True)
     Offer_Price = models.CharField(max_length=15, null=True, default=None, blank=True)
+    Discount = models.IntegerField(default=10)
     Show_Whatsapp = models.BooleanField(default=False, null=True, blank=True)
     Whatsapp_Number = models.CharField(max_length=15, null=True, default=None, blank=True)
     Show_Enquiry = models.BooleanField(default=False, null=True, blank=True)
@@ -294,6 +298,7 @@ class Service(models.Model):
     Show_Price = models.BooleanField(default=False, null=True, blank=True)
     Actual_Price = models.CharField(max_length=15, null=True, default=None, blank=True)
     Offer_Price = models.CharField(max_length=15, null=True, default=None, blank=True)
+    Discount = models.IntegerField(default=10)
     Show_Whatsapp = models.BooleanField(default=False, null=True, blank=True)
     Whatsapp_Number = models.CharField(max_length=15, null=True, default=None, blank=True)
     Show_Enquiry = models.BooleanField(default=False, null=True, blank=True)
