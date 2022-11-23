@@ -7226,7 +7226,7 @@ body .search-modal .close:hover {
 
 .rs-blog.blog-main-home .blog-item .blog-content .blog-meta {
     display: flex;
-    background: #B90A0A;
+    background:var(--changer);
     position: absolute;
     top: -46px;
     left: 44px;
@@ -7272,7 +7272,7 @@ body .search-modal .close:hover {
     position: absolute;
     width: 0;
     height: 0;
-    border-bottom: 47px solid #B90A0A;
+    border-bottom: 47px solid var(--changer);
     border-left: 45px solid transparent;
     left: -45px;
     display: block;
