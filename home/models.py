@@ -263,6 +263,15 @@ class Product(models.Model):
     def __str__(self):
         return self.Title
 
+    def save(self,*args,**kwargs):
+        if self.Actual_Price and self.Offer_Price :
+            discount = (int(self.Actual_Price) - int(self.Offer_Price)) / int(self.Actual_Price) * 100
+        else:
+            discount = 0
+
+        self.Discount = discount
+        super().save(*args,**kwargs)
+
     # image resize function
     # def save(self,*args,**kwargs):
     #     super().save(*args,**kwargs)
@@ -312,6 +321,15 @@ class Service(models.Model):
 
     def __str__(self):
         return self.Title
+
+    def save(self,*args,**kwargs):
+        if self.Actual_Price and self.Offer_Price :
+            discount = (int(self.Actual_Price) - int(self.Offer_Price)) / int(self.Actual_Price) * 100
+        else:
+            discount = 0
+
+        self.Discount = discount
+        super().save(*args,**kwargs)
 
     # image resize function
     # def save(self,*args,**kwargs):

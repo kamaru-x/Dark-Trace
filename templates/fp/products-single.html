@@ -59,7 +59,11 @@
                         <div class="single-price-info pl-30 sm-pl-0"><br><br>
                             <h3 class="product-title">{{product.Title}}</h3>
                             {% if product.Show_Price %}
-                                <span class="single-price"><del style="color:grey;">${{product.Actual_Price}}</del>&nbsp ${{product.Offer_Price}}</span>
+                                {% if product.Offer_Price %}
+                                    <span class="single-price"><del style="color:grey;">${{product.Actual_Price}}</del>${{product.Offer_Price}}</span>
+                                {% else %}
+                                    <span class="single-price"><del style="color:grey;"></del>${{product.Actual_Price}}</span>
+                                {% endif %}
                             {% endif %}
                             <!-- <p class="some-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> --> <br><br>
                             {% if product.Show_Enquiry %}
@@ -108,13 +112,19 @@
                                                                 <div class="overley">
                                                                     <a href="{% url 'product-details' p.Url %}"><i class="flaticon-shopping-bag"></i></a>
                                                                 </div>
-                                                                <span class="megasale">{{p.Discount}}%</span>
+                                                                {% if p.Discount %}
+                                                                    <span class="megasale">{{p.Discount}}%</span>
+                                                                {% endif %}
                                                             </div>
                                                             {% endif %}
                                                             <div class="content-desc text-center">
                                                                 <h2 class="loop-product-title pt-15"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a>
                                                                 {% if p.Show_Price %}
-                                                                    <p class="price"><del style="color:grey;">${{p.Actual_Price}}</del> ${{p.Offer_Price}}</p>
+                                                                    {% if p.Offer_Price %}
+                                                                        <p class="price"><del style="color:grey;">${{p.Actual_Price}}</del>${{p.Offer_Price}}</p>
+                                                                    {% else %}
+                                                                        <p class="price"><del style="color:grey;"></del>${{p.Actual_Price}}</p>
+                                                                    {% endif %}
                                                                 {% endif %}
                                                                 </h2>
                                                                 <!--<span class="price">$30.00</span>-->

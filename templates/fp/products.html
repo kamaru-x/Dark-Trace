@@ -78,13 +78,19 @@
                                 <div class="overley">
                                     <a href="{% url 'product-details' product.Url %}"><i class="flaticon-shopping-bag"></i></a>
                                 </div>
-                                <span class="megasale">{{product.Discount}}%</span>
+                                {% if product.Discount %}
+                                    <span class="megasale">{{product.Discount}}%</span>
+                                {% endif %}
                             </div>
                             {% endif %}
                             <div class="content-desc text-center">
                                 <h2 class="loop-product-title"><a href="{% url 'product-details' product.Url %}">{{product.Title}}</a>
                                 {% if product.Show_Price %}
-                                    <p class="price"><del style="color:grey;">${{product.Actual_Price}}</del> ${{product.Offer_Price}}</p>
+                                    {% if product.Offer_Price %}
+                                        <p class="price"><del style="color:grey;">${{product.Actual_Price}}</del> ${{product.Offer_Price}}</p>
+                                    {% else %}
+                                        <p class="price"><del style="color:grey;"></del> ${{product.Actual_Price}}</p>
+                                    {% endif %}
                                 {% endif %}
                                 </h2>    
                             </div>
