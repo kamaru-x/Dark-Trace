@@ -266,15 +266,6 @@ class Product(models.Model):
     def __str__(self):
         return self.Title
 
-    def discount(self,*args,**kwargs):
-        if self.Actual_Price and self.Offer_Price :
-            discount = (int(self.Actual_Price) - int(self.Offer_Price)) / int(self.Actual_Price) * 100
-        else:
-            discount = 0
-
-        self.Discount = discount
-        super().save(*args,**kwargs)
-
     # image resize function
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)
@@ -324,16 +315,7 @@ class Service(models.Model):
     SMKeywords = models.CharField(max_length=2000, null=True, default=None, blank=True)
 
     def __str__(self):
-        return self.Title
-
-    def discount(self,*args,**kwargs):
-        if self.Actual_Price and self.Offer_Price :
-            discount = (int(self.Actual_Price) - int(self.Offer_Price)) / int(self.Actual_Price) * 100
-        else:
-            discount = 0
-
-        self.Discount = discount
-        super().save(*args,**kwargs)
+        return self.Title        
 
     # image resize function
     def save(self,*args,**kwargs):

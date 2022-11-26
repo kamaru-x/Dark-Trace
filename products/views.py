@@ -50,10 +50,10 @@ def products(request):
         # else:
         #     discount = (int(actual_price) - int(offer_price)) / int(actual_price) * 100
 
-        # if actual_price and offer_price :
-        #     discount = (int(actual_price) - int(offer_price)) / int(actual_price) * 100
-        # else:
-        #     discount = 0
+        if actual_price and offer_price :
+            discount = (int(actual_price) - int(offer_price)) / int(actual_price) * 100
+        else:
+            discount = 0
 
 
         user = request.user.id
@@ -67,7 +67,7 @@ def products(request):
             ip = request.META.get('REMOTE_ADDR')
 
         Data = Product(Date=date,AddedBy=user,Ip=ip,Title=title,Image=image,Refer_number=refer_id,Description=description,Show_Price=show_price,
-        Actual_Price=actual_price,Offer_Price=offer_price,Show_Whatsapp=whatsapp,Whatsapp_Number=number,
+        Actual_Price=actual_price,Offer_Price=offer_price,Show_Whatsapp=whatsapp,Whatsapp_Number=number,Discount=discount,
         Show_Enquiry=show_enquiry,Show_Feature=show_feature,Url=url,SMTitle=smtitle,SMDescription=smdescription,SMKeywords=smkeywords)
         Data.save()
         messages.success(request,'added new product succesfully')
@@ -130,6 +130,14 @@ def edit_product(request,pid):
         product.SMTitle = request.POST.get('smtitle')
         product.SMDescription = request.POST.get('smdescription')
         product.SMKeywords = request.POST.get('smkeywords')
+
+        if product.Actual_Price and product.Offer_Price :
+            discount = (int(product.Actual_Price) - int(product.Offer_Price)) / int(product.Actual_Price) * 100
+        else:
+            discount = 0
+
+        product.Discount = discount
+
         product.save()
         messages.success(request,'product details edited successfully')
         return redirect('.')
