@@ -88,15 +88,6 @@ def edit_blog(request,bid):
         blog.EditedIp = ip
         blog.Edited_Date = datetime.now()
 
-        urls = Blog.objects.all()
-
-        for u in urls :
-            if u.Url == blog.Url:
-                messages.error(request,'blog already exist with same name and url')
-                return redirect('blog')
-            else:
-                pass
-
         blog.save()
         messages.success(request,'blog edited successfull...!')
         return redirect('.')

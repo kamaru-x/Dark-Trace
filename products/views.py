@@ -158,6 +158,5 @@ def remove_pro_img(request,pid):
     product = Product.objects.get(id=pid)
 
     product.Image.delete(save=True)
-    product.save()
 
     return redirect('/admin/edit_product/%s' %product.id)
