@@ -86,6 +86,9 @@
                             {% if service.Show_Enquiry %}
                                 <button class="add-btn ml-10" type="submit" data-toggle="modal" data-target="#get-quote" href="#" opacity="1">Enquire</button>
                             {% endif %}
+                            {% if service.Show_Whatsapp %}
+                                <a href="https://wa.me/+91{{contact.Whatsapp}}"><button class="add-btn ml-10">Order On Whatsapp</button></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
