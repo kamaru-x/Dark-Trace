@@ -83,29 +83,32 @@
         <div id="rs-services" class="rs-services chooseus-style about-style pt-100 pb-100 md-pt-70 md-pb-70" style="background-color:#dbdbdb;">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 md-mb-30">
-                        <div class="services-item">
-                            <div class="services-icon">
-                                <img src="{% static 'fp/assets/images/choose/icons/1.png' %}" alt="Images">
-                            </div>
-                            <div class="services-text">
-                                <h3 class="title" style="color:#000;">{{about.Vision_Title}}</h3>
-                                <p class="services-txt" style="color:#000;">{{about.Vision}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 sm-mb-30">
-                        <div class="services-item">
-                            <div class="services-icon">
-                                <img src="{% static 'fp/assets/images/choose/icons/2.png' %}" alt="Images">
-                            </div>
-                            <div class="services-text">
-                                <h3 class="title" style="color:#000;">{{about.Mission_Title}}</h3>
-                                <p class="services-txt" style="color:#000;">{{about.Mission}}</p>
+                    {% if about.Vision %}
+                        <div class="col-lg-6 col-md-6 md-mb-30">
+                            <div class="services-item">
+                                <div class="services-icon">
+                                    <img src="{% static 'fp/assets/images/choose/icons/1.png' %}" alt="Images">
+                                </div>
+                                <div class="services-text">
+                                    <h3 class="title" style="color:#000;">{{about.Vision_Title}}</h3>
+                                    <p class="services-txt" style="color:#000;">{{about.Vision}}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
+                    {% endif %}
+                    {% if about.Mission %}
+                        <div class="col-lg-6 col-md-6 sm-mb-30">
+                            <div class="services-item">
+                                <div class="services-icon">
+                                    <img src="{% static 'fp/assets/images/choose/icons/2.png' %}" alt="Images">
+                                </div>
+                                <div class="services-text">
+                                    <h3 class="title" style="color:#000;">{{about.Mission_Title}}</h3>
+                                    <p class="services-txt" style="color:#000;">{{about.Mission}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
