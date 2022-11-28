@@ -51,7 +51,7 @@ class About(models.Model):
     # additional
     Title = models.CharField(max_length=50)
     Mission_Title = models.CharField(max_length=50,null=True,blank=True,default='Mission')
-    Mission = models.TextField()
+    Mission = models.TextField(null=True,blank=True)
     Vision_Title = models.CharField(max_length=50,null=True,blank=True,default='Vision')
     Vision = models.TextField(null=True,blank=True)
     Description = RichTextField(null=True,blank=True)
