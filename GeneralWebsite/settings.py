@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'services',
     'testimonials',
     'DarkTrace',
+    'api',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
