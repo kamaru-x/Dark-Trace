@@ -30,7 +30,10 @@ def home(request):
     theme = ThemeSerializer(th)
 
     data = [about.data,contact.data,product.data,services.data,blogs.data,testimonials.data,banners.data,clints.data,theme.data]
-    return Response(data)
+
+    array = {'about':data[0],'contact':data[1],'products':data[2],'services':data[3],'blogs':data[4],'testimonials':data[5],'banners':data[6],'clints':data[7],'theme':data[8]}
+
+    return Response(array)
 
 #####################################################################################
 
