@@ -56,8 +56,12 @@ def contact_us(request):
     if request.method ==  'POST':
         serializer2 = FeedbackSerializer(data = request.data)
         if serializer2.is_valid():
+            data_status = True
             serializer2.save()
-            return Response(serializer2.data,status=status.HTTP_201_CREATED)
+            return Response(data_status,status=status.HTTP_201_CREATED)
+        else:
+            data_status = False
+            return Response(data_status,status=status.HTTP_400_BAD_REQUEST)
 
 #####################################################################################
 
@@ -204,8 +208,12 @@ def product_details(request,id):
     if request.method ==  'POST':
         serializer = EnquirySerializer(data = request.data)
         if serializer.is_valid():
+            data_status = True
             serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
+            return Response(data_status,status=status.HTTP_201_CREATED)
+        else:
+            data_status = False
+            return Response(data_status,status=status.HTTP_400_BAD_REQUEST)
 
 #####################################################################################
 
@@ -232,8 +240,13 @@ def service_details(request,id):
     if request.method ==  'POST':
         serializer = EnquirySerializer(data = request.data)
         if serializer.is_valid():
+            data_status = True
             serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
+            return Response(data_status,status=status.HTTP_201_CREATED)
+        else:
+            data_status = False
+            return Response(data_status,status=status.HTTP_400_BAD_REQUEST)
+
 
 #####################################################################################
 
