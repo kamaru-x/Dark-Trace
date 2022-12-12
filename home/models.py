@@ -348,7 +348,7 @@ class Enquiry(models.Model):
     Mobile_Number = models.CharField(max_length=15,null=True, default=None, blank=True)
     Email = models.EmailField(null=True, default=None, blank=True)
     Product_Name = models.CharField(max_length=50,null=True, default=None, blank=True)
-    Whatsapp = models.CharField(max_length=15)
+    Whatsapp = models.CharField(max_length=15,null=True)
     District = models.CharField(max_length=25,null=True)
     Address = models.TextField()
     Refer_number = models.CharField(max_length=6,null=True, default=None, blank=True)

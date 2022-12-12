@@ -208,12 +208,10 @@ def product_details(request,id):
     if request.method ==  'POST':
         serializer = EnquirySerializer(data = request.data)
         if serializer.is_valid():
-            data_status = True
             serializer.save()
-            return Response(data_status,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
-            data_status = False
-            return Response(data_status,status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 #####################################################################################
 
@@ -240,12 +238,10 @@ def service_details(request,id):
     if request.method ==  'POST':
         serializer = EnquirySerializer(data = request.data)
         if serializer.is_valid():
-            data_status = True
             serializer.save()
-            return Response(data_status,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
-            data_status = False
-            return Response(data_status,status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 #####################################################################################
