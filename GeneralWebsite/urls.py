@@ -32,6 +32,7 @@ urlpatterns = [
     path('admin/',include('django.contrib.auth.urls')),
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('api/',include('api.urls')),
+    path('admin/',include('appbnr.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

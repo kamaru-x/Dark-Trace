@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'testimonials',
     'DarkTrace',
     'api',
-    'rest_framework'
+    'rest_framework',
+    'appbnr',
 ]
 
 MIDDLEWARE = [

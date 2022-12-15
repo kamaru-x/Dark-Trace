@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from home.models import Product,Feedback,About,Blog,Album,Album_Image,Contact,Service,Enquiry,Manage_Menu,Quick_Links,Group_Of_Companies,Testimonial,Banners,Theme
+from home.models import Product,Feedback,About,Blog,Album,Album_Image,Contact,Service,Enquiry,Manage_Menu,Quick_Links,Group_Of_Companies,Testimonial,Banners,Theme,Appbnr
 
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
@@ -68,7 +68,7 @@ class TestimonialSerializer(serializers.ModelSerializer):
 
 class BannerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Banners
+        model = Appbnr
         fields = ['id','Caption','Sub_Caption','Button_Label','Link','Banner_Image']
 
 class ThemeSerializer(serializers.ModelSerializer):

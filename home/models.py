@@ -531,3 +531,41 @@ class Theme(models.Model):
     # additional
     Primary = models.CharField(max_length=10,null=True,blank=True)
     Secondary = models.CharField(max_length=10,null=True,blank=True)
+
+########################################################################
+
+class Appbnr(models.Model):
+    # default
+    Date = models.DateTimeField(null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.IntegerField(default=0)
+    Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
+
+    # additional
+    Caption = models.CharField(max_length=100)
+    Sub_Caption = models.CharField(max_length=100)
+    Button_Label = models.CharField(max_length=30)
+    Link = models.CharField(max_length=1000)
+    Banner_Image = models.ImageField(blank=True,null=True,upload_to='BannerImage')
+
+    def __str__(self):
+        return self.Caption
+
+    # image resize functions
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)
+        if self.Banner_Image:
+            img = IMG.open(self.Banner_Image.path)
+
+            if img.height > 1500 or img.width > 1500:
+                output_size = (1500,1500)
+                img.thumbnail(output_size)
+                img.save(self.Banner_Image.path)
+            elif img.height < 1500 or img.width < 1500:
+                output_size = (1500,1500)
+                img.thumbnail(output_size)
+                img.save(self.Banner_Image.path)
