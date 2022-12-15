@@ -1,4 +1,4 @@
-from home.models import About,Contact,Product,Feedback,Enquiry,Quick_Links,Manage_Menu,Theme,Banners,Blog,Album,Album_Image,Group_Of_Companies,Service,Testimonial
+from home.models import About,Contact,Product,Feedback,Enquiry,Quick_Links,Manage_Menu,Theme,Banners,Blog,Album,Album_Image,Group_Of_Companies,Service,Testimonial,Appbnr
 from api.serializers import ProductSerializer,AboutSerializer,ContactSerializer,FeedbackSerializer,EnquirySerializer,FooterSerializer,HeaderSerializer,ThemeSerializer,BannerSerializer,BlogSerializer,AlbumSerializer,ImagesSerializer,GOCSerializer,ServiceSerializer,TestimonialSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -14,7 +14,7 @@ def home(request):
     s = Service.objects.filter(Status=1).filter(Show_Feature=1)
     b = Blog.objects.filter(Status=1)
     t = Testimonial.objects.filter(Status=1)
-    sl = Banners.objects.filter(Status=1)
+    sl = Appbnr.objects.filter(Status=1)
     g = Group_Of_Companies.objects.filter(Status=1)
     th = Theme.objects.last()
 
