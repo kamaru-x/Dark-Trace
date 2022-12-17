@@ -69,7 +69,7 @@
                                         <div class="post-desc">
                                             <a href="{% url 'blog-detailed' b.Url %}"> {{b.Title}}
                                             </a>
-                                            <span class="date-post"> <i class="fa fa-calendar"></i> {{b.Date}} </span>
+                                            <span class="date-post"> <i class="fa fa-calendar"></i> {{ b.Date|date:"d M,Y" }} </span>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -98,7 +98,7 @@
                                             <ul class="btm-cate">
                                                 <li>
                                                     <div class="blog-date">
-                                                        <i class="fa fa-calendar-check-o"></i> {{blog.Date}}
+                                                        <i class="fa fa-calendar-check-o"></i> {{ blog.Date|date:"d M,Y" }}
                                                     </div>
                                                 </li>
                                                 <li>

@@ -68,7 +68,7 @@
                                     <div class="post-desc">
                                         <a href="{% url 'blog-detailed' b.Url %}"> {{b.Title}}
                                         </a>
-                                        <span class="date-post"> <i class="fa fa-calendar"></i> {{b.Date}} </span>
+                                        <span class="date-post"> <i class="fa fa-calendar"></i> {{ b.Date|date:"d M,Y" }} </span>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -88,7 +88,7 @@
                                     <div class="blog-full">
                                         <ul class="single-post-meta">
                                             <li>
-                                                <span class="p-date"><i class="fa fa-calendar-check-o"></i> {{blog.Date}}</span>
+                                                <span class="p-date"><i class="fa fa-calendar-check-o"></i> {{ blog.Date|date:"d M,Y" }}</span>
                                             </li>
                                             <li>
                                                 <span class="p-date"> <i class="fa fa-user-o"></i> admin </span>
