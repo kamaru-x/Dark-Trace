@@ -14,7 +14,7 @@ class AboutSerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ['id','Date','Title','Description','Image']
+        fields = ['id','ApiDate','ApiTime','Title','Description','Image']
 
 class AlbumSerializer(serializers.ModelSerializer):
     class Meta:

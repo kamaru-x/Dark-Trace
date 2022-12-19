@@ -79,6 +79,10 @@ class Blog(models.Model):
     EditedBy = models.IntegerField(default=0)
     EditedIp = models.GenericIPAddressField(null=True)
 
+    #api
+    ApiDate = models.DateField(null=True,blank=True,auto_now_add=True)
+    ApiTime = models.TimeField(null=True,blank=True,auto_now_add=True)
+
     # additional
     Title = models.CharField(max_length=50)
     Description = models.TextField()
