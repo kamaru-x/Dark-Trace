@@ -448,7 +448,11 @@
   <script src="{% static 'assets/js/argon.js' %}"></script>
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-
+  <!--rich text-->
+  <script src="{% static 'editor/ckeditor.js' %}"></script>
+  <script>
+    CKEDITOR.replace('test');
+  </script>
 </body>
 
 </html>

@@ -13,7 +13,7 @@ def blog(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         image = request.FILES['image']
-        description = request.POST.get('description')
+        description = request.POST.get('test')
         url = request.POST.get('url')
         smtitle = request.POST.get('smtitle')
         smkeywords = request.POST.get('smkeywords')
@@ -79,7 +79,7 @@ def edit_blog(request,bid):
             blog.Image = request.FILES['image']
         #     else:
         blog.Title = request.POST.get('title')
-        blog.Description = request.POST.get('description')
+        blog.Description = request.POST.get('test')
         blog.Url = request.POST.get('url')
         blog.SMTitle = request.POST.get('smtitle')
         blog.SMDescription = request.POST.get('smdescription')

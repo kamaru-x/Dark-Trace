@@ -85,7 +85,7 @@ class Blog(models.Model):
 
     # additional
     Title = models.CharField(max_length=50)
-    Description = models.TextField()
+    Description = RichTextField(null=True,blank=True)
     Image = models.ImageField(blank=True,null=True,upload_to='blog')
     Url = models.CharField(max_length=20000,unique=True)
     

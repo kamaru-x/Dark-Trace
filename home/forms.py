@@ -4,10 +4,21 @@ from home.models import Blog,About
 from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth.forms import PasswordChangeForm
 
-class Edit_Blog(forms.ModelForm):
+class Blog_Form(forms.ModelForm):
+    Description = forms.CharField(widget=CKEditorWidget())
     class Meta():
         model = Blog
-        fields = '__all__'
+        fields = ('Title','Description','Image','Url','SMTitle','SMDescription','SMKeywords')
+
+        widgets = {
+            'Title': TextInput(attrs={'class' : 'form-control','name' : 'title','id':'title'}),
+            'Description' : Textarea(attrs={'class':'form-control'}),
+            'Image' : FileInput(attrs={'class' : 'form-control'}),
+            'Url' : TextInput(attrs={'class' : 'form-control','name' : 'url','id':'url'}),
+            'SMTitle' : TextInput(attrs={'class' : 'form-control'}),
+            'SMKeywords' : TextInput(attrs={'class' : 'form-control'}),
+            'SMDescription' : Textarea(attrs={'class' : 'form-control'}),
+        }
 
 class AboutForm(forms.ModelForm):
     Description = forms.CharField(widget=CKEditorWidget())

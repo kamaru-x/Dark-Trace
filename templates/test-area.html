@@ -1,4 +1,9 @@
 {% extends 'index.html' %}
+{% load static %}
 {% block content %}
-
+<textarea name="test" id="" cols="30" rows="10"></textarea>
+<script src="{% static 'editor/ckeditor.js' %}"></script>
+<script>
+	CKEDITOR.replace('test');
+</script>
 {% endblock content %}

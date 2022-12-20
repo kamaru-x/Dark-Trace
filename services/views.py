@@ -19,7 +19,7 @@ def services(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         image = request.FILES['image']
-        description = request.POST.get('description')
+        description = request.POST.get('test')
         show_price = request.POST.get('check1')
         whatsapp = request.POST.get('check2')
         show_enquiry = request.POST.get('check3')
@@ -112,7 +112,7 @@ def edit_service(request,sid):
         service.EditedIp = ip
         service.Edited_Date = datetime.now()
         service.Title = request.POST.get('title')
-        service.Description = request.POST.get('description')
+        service.Description = request.POST.get('test')
         service.Show_Price = request.POST.get('check1')
         service.Actual_Price = request.POST.get('actual_price')
         service.Offer_Price = request.POST.get('offer_price')

@@ -21,7 +21,7 @@ def products(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         image = request.FILES['image']
-        description = request.POST.get('description')
+        description = request.POST.get('test')
         show_price = request.POST.get('check1')
         whatsapp = request.POST.get('check2')
         show_enquiry = request.POST.get('check3')
@@ -118,7 +118,7 @@ def edit_product(request,pid):
         product.EditedIp = ip
         product.Edited_Date = datetime.now()
         product.Title = request.POST.get('title')
-        product.Description = request.POST.get('description')
+        product.Description = request.POST.get('test')
         product.Show_Price = request.POST.get('check1')
         product.Actual_Price = request.POST.get('actual_price')
         product.Offer_Price = request.POST.get('offer_price')
