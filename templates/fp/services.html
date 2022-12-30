@@ -66,9 +66,9 @@
                                 <h3 class="title"><a href="{% url 'service-details' service.Url %}">{{service.Title}}</a>
                                 {% if service.Show_Price %}
                                     {% if service.Offer_Price %}
-                                        <p class="price"><del style="color:grey;">${{service.Actual_Price}}</del> ${{service.Offer_Price}}</p>
+                                        <p class="price"><del style="color:grey;">{{color.Currency}}{{service.Actual_Price}}</del> {{color.Currency}}{{service.Offer_Price}}</p>
                                     {% else %}
-                                        <p class="price"><del style="color:grey;"></del> ${{service.Actual_Price}}</p>
+                                        <p class="price"><del style="color:grey;"></del> {{color.Currency}}{{service.Actual_Price}}</p>
                                     {% endif %}
                                 {% endif %}
                                 </h3>

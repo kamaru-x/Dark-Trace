@@ -74,4 +74,4 @@ class BannerSerializer(serializers.ModelSerializer):
 class ThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Theme
-        fields = ['id','Primary','Secondary']
+        fields = ['id','Primary','Secondary','Currency']

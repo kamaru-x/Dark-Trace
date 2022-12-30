@@ -60,9 +60,9 @@
                             <h3 class="product-title">{{product.Title}}</h3>
                             {% if product.Show_Price %}
                                 {% if product.Offer_Price %}
-                                    <span class="single-price"><del style="color:grey;">${{product.Actual_Price}}</del>${{product.Offer_Price}}</span>
+                                    <span class="single-price"><del style="color:grey;">{{color.Currency}}{{product.Actual_Price}}</del>{{color.Currency}}{{product.Offer_Price}}</span>
                                 {% else %}
-                                    <span class="single-price"><del style="color:grey;"></del>${{product.Actual_Price}}</span>
+                                    <span class="single-price"><del style="color:grey;"></del>{{color.Currency}}{{product.Actual_Price}}</span>
                                 {% endif %}
                             {% endif %}
                             <!-- <p class="some-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> --> <br><br>
@@ -124,9 +124,9 @@
                                                                 <h2 class="loop-product-title pt-15"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a>
                                                                 {% if p.Show_Price %}
                                                                     {% if p.Offer_Price %}
-                                                                        <p class="price"><del style="color:grey;">${{p.Actual_Price}}</del>${{p.Offer_Price}}</p>
+                                                                        <p class="price"><del style="color:grey;">{{color.Currency}}{{p.Actual_Price}}</del>{{color.Currency}}{{p.Offer_Price}}</p>
                                                                     {% else %}
-                                                                        <p class="price"><del style="color:grey;"></del>${{p.Actual_Price}}</p>
+                                                                        <p class="price"><del style="color:grey;"></del>{{color.Currency}}{{p.Actual_Price}}</p>
                                                                     {% endif %}
                                                                 {% endif %}
                                                                 </h2>

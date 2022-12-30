@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from home.models import Contact,Enquiry,Manage_Menu,Product,Quick_Links,Service,Feedback,About,Blog,Album,Theme
+from home.models import Contact,Enquiry,Manage_Menu,Product,Quick_Links,Service,Feedback,About,Blog,Album,Theme,Currency
 from home.forms import AboutForm
 from django.contrib import messages
 import os
@@ -402,6 +402,7 @@ def signout(request):
 def change_color(request):
     color = Theme.objects.last()
     manage = Manage_Menu.objects.last()
+    currencies = Currency.objects.all()
 
     user = request.user.id
         
@@ -417,17 +418,20 @@ def change_color(request):
             color.Secondary = request.POST.get('secondary')
             color.EditedBy = user
             color.EditedIp = ip
+            color.Currency = request.POST.get('currency')
             color.Edited_Date = datetime.now()
             color.save()
             return redirect('/admin/theme')
         else:
             primary = request.POST.get('primary')
             secondary = request.POST.get('secondary')
-            data = Theme(Primary=primary,Secondary=secondary,EditedBy=user,EditedIp=ip,Edited_Date=datetime.now())
+            currency = request.POST.get('currency')
+            data = Theme(Primary=primary,Secondary=secondary,EditedBy=user,EditedIp=ip,Edited_Date=datetime.now(),Currency=currency)
             data.save()
     context ={
         'color' : color,
-        'manage' : manage
+        'manage' : manage,
+        'currencies' : currencies
     }
     return render(request,'change-theme.html',context)
 

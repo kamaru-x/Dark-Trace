@@ -48,6 +48,15 @@
               <label for="example-color-input" class="form-control-label text-center">Hex code</label>
               <input class="form-control" type="text" name="secondary" value="{{color.Secondary}}" id="shex">
             </div>
+            <div class="form-group col-md-12">
+              <label for="example-color-input" class="form-control-label text-center">Select Currency</label>
+              <select name="currency" id="" class="form-control">
+                <option value="">{{color.Currency}}</option>
+                {% for currency in currencies %}
+                  <option value="{{currency.Currency_Code}}">{{currency.Country}}--({{currency.Currency}})</option>
+                {% endfor %}
+              </select>
+            </div>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary text-center">Set Color</button>

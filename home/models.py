@@ -521,23 +521,6 @@ class Banners(models.Model):
 
 ########################################################################
 
-class Theme(models.Model):
-    # default
-    Date = models.DateTimeField(null=True)
-    Status = models.IntegerField(default=1)
-    AddedBy = models.IntegerField(default=0)
-    Ip = models.GenericIPAddressField(null=True)
-
-    Edited_Date = models.DateTimeField(null=True)
-    EditedBy = models.IntegerField(default=0)
-    EditedIp = models.GenericIPAddressField(null=True)
-
-    # additional
-    Primary = models.CharField(max_length=10,null=True,blank=True)
-    Secondary = models.CharField(max_length=10,null=True,blank=True)
-
-########################################################################
-
 class Appbnr(models.Model):
     # default
     Date = models.DateTimeField(null=True)
@@ -573,3 +556,33 @@ class Appbnr(models.Model):
                 output_size = (1500,1500)
                 img.thumbnail(output_size)
                 img.save(self.Banner_Image.path)
+
+########################################################################
+
+class Currency(models.Model):
+    Country = models.CharField(max_length=50)
+    Currency = models.CharField(max_length=50)
+    Currency_Code = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.Country
+
+########################################################################
+
+class Theme(models.Model):
+    # default
+    Date = models.DateTimeField(null=True)
+    Status = models.IntegerField(default=1)
+    AddedBy = models.IntegerField(default=0)
+    Ip = models.GenericIPAddressField(null=True)
+
+    Edited_Date = models.DateTimeField(null=True)
+    EditedBy = models.IntegerField(default=0)
+    EditedIp = models.GenericIPAddressField(null=True)
+
+    # additional
+    Primary = models.CharField(max_length=10,null=True,blank=True)
+    Secondary = models.CharField(max_length=10,null=True,blank=True)
+    Currency = models.CharField(max_length=10)
+
+########################################################################
