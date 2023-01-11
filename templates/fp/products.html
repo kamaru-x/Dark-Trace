@@ -87,9 +87,15 @@
                                 <h2 class="loop-product-title"><a href="{% url 'product-details' product.Url %}">{{product.Title}}</a>
                                 {% if product.Show_Price %}
                                     {% if product.Offer_Price %}
-                                        <p class="price"><del style="color:grey;">{{color.Currency}}{{product.Actual_Price}}</del> {{color.Currency}}{{product.Offer_Price}}</p>
+                                        <p class="price"><del style="color:grey;">
+                                            {% if color.Currency == 'INR' %}
+                                                ₹{{product.Actual_Price}}</del>₹{{product.Offer_Price}}
+                                            {% else %}
+                                                {{color.Currency}}{{product.Actual_Price}}</del>{{color.Currency}}{{product.Offer_Price}}
+                                            {% endif %}
+                                        </p>
                                     {% else %}
-                                        <p class="price"><del style="color:grey;"></del> {{color.Currency}}{{product.Actual_Price}}</p>
+                                        <p class="price">{% if color.Currency == 'INR' %}₹{{product.Actual_Price}}{% else %}{{color.Currency}}{{product.Actual_Price}}{% endif %}</p>
                                     {% endif %}
                                 {% endif %}
                                 </h2>    

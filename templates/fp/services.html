@@ -66,13 +66,19 @@
                                 <h3 class="title"><a href="{% url 'service-details' service.Url %}">{{service.Title}}</a>
                                 {% if service.Show_Price %}
                                     {% if service.Offer_Price %}
-                                        <p class="price"><del style="color:grey;">{{color.Currency}}{{service.Actual_Price}}</del> {{color.Currency}}{{service.Offer_Price}}</p>
+                                        <p class="price"><del style="color:grey;">
+                                            {% if color.Currency == 'INR' %}
+                                                ₹{{service.Actual_Price}}</del>₹{{service.Offer_Price}}
+                                            {% else %}
+                                                {{color.Currency}}{{service.Actual_Price}}</del>{{color.Currency}}{{service.Offer_Price}}
+                                            {% endif %}
+                                        </p>
                                     {% else %}
-                                        <p class="price"><del style="color:grey;"></del> {{color.Currency}}{{service.Actual_Price}}</p>
+                                        <p class="price">{% if color.Currency == 'INR' %}₹{{service.Actual_Price}}{% else %}{{color.Currency}}{{service.Actual_Price}}{% endif %}</p>
                                     {% endif %}
                                 {% endif %}
                                 </h3>
-                                <div class="desc">{{service.Description|slice:":100"}}</div>
+                                <div class="desc">{{service.Description|slice:":100"|striptags}}</div>
                             </div>
                         </div></a>
                     </div>

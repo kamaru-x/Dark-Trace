@@ -173,6 +173,8 @@ def remove_image(request,aid,iid):
     image = Album_Image.objects.get(id=iid)
     image.Status = 0
     image.save()
+    album.Images = album.Images -1 
+    album.save()
     messages.success(request,'image deleted successfully')
     return redirect('/admin/edit_album/%s' %album.id)
 

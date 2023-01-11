@@ -7,7 +7,7 @@ urlpatterns = [
     path('',views.user_login,name='login'),
     path('',views.index,name='index'),
     path('test-area/',views.test_area,name='test-area'),
-    path('profile/',PasswordChangeView.as_view(template_name='change-password.html',success_url=reverse_lazy('password changed'),form_class=ChangePassword),name='profile'),
+    # path('profile/',PasswordChangeView.as_view(template_name='change-password.html',success_url=reverse_lazy('password changed'),form_class=ChangePassword),name='profile'),
     path('dashboard/',views.dashboard,name='dashboard'),
     path('about_us/',views.about_us,name='about_us'), 
     path('contact_us/',views.contact_us,name='contact_us'), 
@@ -24,4 +24,5 @@ urlpatterns = [
     path('theme/',views.change_color,name='change-theme'),
     path('export-feedbacks/',views.export_feedbacks,name='export-feedbacks'),
     path('export-enquiries/',views.export_enquiries,name='export-enquiries'),
+    path('profile/',views.user_profile,name='profile')
 ]

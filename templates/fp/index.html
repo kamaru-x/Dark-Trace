@@ -181,13 +181,19 @@
                                 <h3 class="title"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a>
                                 {% if s.Show_Price %}
                                     {% if s.Offer_Price %}
-                                        <p class="price"><del style="color:grey;">{{color.Currency}}{{s.Actual_Price}}</del>{{color.Currency}}{{s.Offer_Price}}</p>
+                                        <p class="price"><del style="color:grey;">
+                                            {% if color.Currency == 'INR' %}
+                                                ₹{{s.Actual_Price}}</del>₹{{s.Offer_Price}}
+                                            {% else %}
+                                                {{color.Currency}}{{s.Actual_Price}}</del>{{color.Currency}}{{s.Offer_Price}}
+                                            {% endif %}
+                                        </p>
                                     {% else %}
-                                        <p class="price">{{color.Currency}}{{s.Actual_Price}}</p>
+                                        <p class="price">{% if color.Currency == 'INR' %}₹{{s.Actual_Price}}{% else %}{{color.Currency}}{{s.Actual_Price}}{% endif %}</p>
                                     {% endif %}
                                 {% endif %}
                                 </h3>
-                                <div class="desc">{{s.Description|slice:":100"}}</div>
+                                <div class="desc">{{s.Description|slice:":100"|striptags}}</div>
                             </div>
                         </div>
                     {% endfor %}    
@@ -264,9 +270,15 @@
                                 <h3 class="team-name"><a href="{% url 'product-details' p.Url %}">{{p.Title}}</a>
                                 {% if p.Show_Price %}
                                     {% if p.Offer_Price %}
-                                        <p class="price"><del style="color:grey;">{{color.Currency}}{{p.Actual_Price}}</del>{{color.Currency}}{{p.Offer_Price}}</p>
+                                        <p class="price"><del style="color:grey;">
+                                            {% if color.Currency == 'INR' %}
+                                                ₹{{p.Actual_Price}}</del>₹{{p.Offer_Price}}
+                                            {% else %}
+                                                {{color.Currency}}{{p.Actual_Price}}</del>{{color.Currency}}{{p.Offer_Price}}
+                                            {% endif %}
+                                        </p>
                                     {% else %}
-                                        <p class="price"><del style="color:grey;"></del>{{color.Currency}}{{p.Actual_Price}}</p>
+                                        <p class="price">{% if color.Currency == 'INR' %}₹{{p.Actual_Price}}{% else %}{{color.Currency}}{{p.Actual_Price}}{% endif %}</p>
                                     {% endif %}
                                 {% endif %}
                                 </h3>    
@@ -342,7 +354,7 @@
                                    <li class="admin"><a href="{% url 'blog-detailed' blog.Url %}"></a></li>
                                </ul>
                                <h3 class="blog-title"><a href="{% url 'blog-detailed' blog.Url %}">{{blog.Title}}</a></h3>
-                               <p class="desc">{{blog.Description | slice:":100"}}</p>
+                               <p class="desc">{{blog.Description | slice:":100" | striptags}}</p>
                                <div class="blog-btn">
                                     <a class="readon consultant blog" href="{% url 'blog-detailed' blog.Url %}">Read More</a>
                                 </div>

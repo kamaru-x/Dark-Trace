@@ -48,11 +48,11 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
-    feedbacks = Feedback.objects.all()
-    products = Product.objects.all()
-    services = Service.objects.all()
-    blogs = Blog.objects.all()
-    albums = Album.objects.all()
+    feedbacks = Feedback.objects.filter(Status=1)
+    products = Product.objects.filter(Status=1)
+    services = Service.objects.filter(Status=1)
+    blogs = Blog.objects.filter(Status=1)
+    albums = Album.objects.filter(Status=1)
     manage = Manage_Menu.objects.last()
 
     product_count = len(products)
@@ -372,22 +372,22 @@ def remove_enquiry(request,eid):
 
 ########################################################################
 
-@login_required
-def user_profile(request):
-    manage = Manage_Menu.objects.last()
-    form = UserChangeForm
-    if request.method == "POST":
-        form = AboutForm(request.POST , request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request,'about edited successfully')
-            return redirect('about_us')
-    form = UserChangeForm()
-    context = {
-        'form' : form,
-        'manage' : manage
-    }
-    return render(request,'change-password.html',context)
+# @login_required
+# def user_profile(request):
+#     manage = Manage_Menu.objects.last()
+#     form = UserChangeForm
+#     if request.method == "POST":
+#         form = AboutForm(request.POST , request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request,'about edited successfully')
+#             return redirect('about_us')
+#     form = UserChangeForm()
+#     context = {
+#         'form' : form,
+#         'manage' : manage
+#     }
+#     return render(request,'change-password.html',context)
 
 ########################################################################
 
@@ -492,3 +492,24 @@ def export_enquiries(request):
     wb.save(response)
 
     return response
+
+
+@login_required
+def user_profile(request):
+    manage = Manage_Menu.objects.last()
+    if request.method == 'POST':
+        passwd1 = request.POST.get('password1')
+        passwd2 = request.POST.get('password2')
+        if passwd1 != passwd2:
+            messages.error(request,'password not matching re enter password')
+            return redirect('/admin/profile/')
+        else:
+            user = User.objects.get(id=request.user.id)
+            user.set_password(passwd2)
+            user.save()
+            return redirect('/admin/')
+    context = {
+        # 'form' : form,
+        'manage' : manage
+    }
+    return render(request,'change-password.html',context)

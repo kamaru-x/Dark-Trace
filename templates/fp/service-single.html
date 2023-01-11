@@ -1,19 +1,20 @@
 {% extends 'fp/base.html' %}
 {% load static %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
     <!-- meta tag -->
     <meta charset="utf-8">
-    <title>Darktrace-Consulting</title>
-    <meta name="description" content="">
+    <title>{{service.SMTitle}}</title>
+    <meta name="description" content="{{service.SMDescription}}">
+    <meta name="keywords" content="{{service.SMKeywords}}">
     <!-- responsive tag -->
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
-{% block content %}
 
 <body class="defult-home">
 
@@ -77,9 +78,17 @@
                             <h3 class="product-title">{{service.Title}}</h3>
                             {% if service.Show_Price %}
                                 {% if service.Offer_Price %}
-                                    <span class="single-price"><del style="color:grey;">{{color.Currency}}{{service.Actual_Price}}</del>{{color.Currency}}{{service.Offer_Price}}</span>
+                                    {% if color.Currency == 'INR' %}
+                                        <span class="single-price"><del style="color:grey;">₹{{service.Actual_Price}}</del>₹{{service.Offer_Price}}</span>
+                                    {% else %}
+                                        <span class="single-price"><del style="color:grey;">{{color.Currency}}{{service.Actual_Price}}</del>{{color.Currency}}{{service.Offer_Price}}</span>
+                                    {% endif %}
                                 {% else %}
-                                    <span class="single-price">{{color.Currency}}{{service.Actual_Price}}</span>
+                                    {% if color.Currency == 'INR' %}
+                                        <span class="single-price"><del style="color:grey;"></del>₹{{service.Actual_Price}}</span>
+                                    {% else %}
+                                        <span class="single-price"><del style="color:grey;"></del>{{color.Currency}}{{service.Actual_Price}}</span>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                             <!-- <p class="some-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> --> <br><br>
@@ -111,7 +120,7 @@
                            <div class="single-price-info pl-30 sm-pl-0">
                            <!--<h4 class="product-title">Product Title</h4>-->
                             <!-- <span class="single-price"><del style="color:grey;">$200</del>&nbsp $150.00</span> -->
-                            <p class="some-text">{{service.Description}}</p>
+                            <p class="some-text">{{service.Description|striptags}}</p>
                               
                             </div>
                         </div>
@@ -141,9 +150,15 @@
                                 <h2 class="loop-product-title pt-15"><a href="{% url 'service-details' s.Url %}">{{s.Title}}</a>
                                 {% if s.Show_Price %}
                                     {% if s.Offer_Price %}
-                                        <p class="price"><del style="color:grey;">{{color.Currency}}{{s.Actual_Price}}</del>{{color.Currency}}{{s.Offer_Price}}</p>
+                                        <p class="price"><del style="color:grey;">
+                                            {% if color.Currency == 'INR' %}
+                                                ₹{{s.Actual_Price}}</del>₹{{s.Offer_Price}}
+                                            {% else %}
+                                                {{color.Currency}}{{s.Actual_Price}}</del>{{color.Currency}}{{s.Offer_Price}}
+                                            {% endif %}
+                                        </p>
                                     {% else %}
-                                        <p class="price"><del style="color:grey;"></del>${{s.Actual_Price}}</p>
+                                        <p class="price">{% if color.Currency == 'INR' %}₹{{s.Actual_Price}}{% else %}{{color.Currency}}{{s.Actual_Price}}{% endif %}</p>
                                     {% endif %}
                                 {% endif %}
                                 </h2>
